@@ -19,6 +19,15 @@ Este repositorio documenta las prácticas de la materia **Integradora** correspo
 
 ---
 
+## 📌 Tabla de prácticas
+
+| No. | Práctica | Descripción | Estado |
+| :---: | --- | --- | :---: |
+| 01 | Práctica 01 | Actividades correspondientes a la primera práctica de la materia | Concluida |
+| 02 | Boceto de Arquitectura de Proyecto Integrador con Archify | Instalación y configuración de Codex-CLI y Archify, generación de un modelo arquitectónico interactivo y publicación mediante GitHub Pages | Concluida |
+
+---
+
 ## 🛠️ Herramientas utilizadas
 
 | Herramienta | Propósito |
