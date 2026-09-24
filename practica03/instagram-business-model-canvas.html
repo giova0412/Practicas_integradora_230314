@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Instagram — Business Model Canvas</title>
+<style>
+  :root{
+    --card-a:#FFC53D;
+    --card-b:#FF9E2C;
+    --green-a:#34D058;
+    --green-b:#0FA968;
+    --ink:#2b2b2b;
+    --muted:#6b6257;
+    --pill:#23272f;
+    --radius:22px;
+    --shadow:0 10px 24px rgba(120,70,0,.14);
+    --shadow-hover:0 18px 38px rgba(120,70,0,.22);
+    --grad:linear-gradient(135deg,#FEDA75 0%,#FA7E1E 45%,#D62976 75%,#962FBF 100%);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:"Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;
+    background:#ffffff;color:var(--ink);padding:32px 28px 56px;line-height:1.5;
+  }
+  .wrap{max-width:1280px;margin:0 auto}
+  header{text-align:center;margin-bottom:26px}
+  .brand{display:flex;align-items:center;justify-content:center;gap:14px}
+  .logo{
+    width:58px;height:58px;border-radius:16px;background:var(--grad);
+    display:flex;align-items:center;justify-content:center;flex:none;
+    box-shadow:0 8px 20px rgba(214,41,118,.35);
+  }
+  .logo svg{width:32px;height:32px;fill:#fff}
+  h1{font-size:clamp(2rem,4.5vw,3.2rem);font-weight:800;letter-spacing:.5px}
+  .subtitle{
+    display:inline-block;margin-top:12px;background:var(--pill);color:#fff;
+    font-weight:700;letter-spacing:4px;font-size:.85rem;
+    padding:10px 34px;border-radius:999px;
+  }
+  .hint{margin-top:12px;color:var(--muted);font-size:.95rem}
+  /* ===== Canvas grid ===== */
+  .canvas{display:grid;gap:18px;margin-top:8px;
+    grid-template-columns:repeat(5,1fr);
+    grid-template-areas:
+      "socios actividades propuesta relacion segmentos"
+      "socios recursos  propuesta canales  segmentos"
+      "costos costos   costos    ingresos ingresos";
+  }
+  .b-socios{grid-area:socios}
+  .b-actividades{grid-area:actividades}
+  .b-recursos{grid-area:recursos}
+  .b-propuesta{grid-area:propuesta}
+  .b-relacion{grid-area:relacion}
+  .b-canales{grid-area:canales}
+  .b-segmentos{grid-area:segmentos}
+  .b-costos{grid-area:costos}
+  .b-ingresos{grid-area:ingresos}
+  .block{
+    background:linear-gradient(160deg,var(--card-a),var(--card-b));
+    border-radius:var(--radius);padding:20px 20px 18px;box-shadow:var(--shadow);
+    cursor:pointer;position:relative;border:3px solid transparent;
+    transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease;
+    display:flex;flex-direction:column;min-height:230px;
+  }
+  .b-ingresos{background:linear-gradient(160deg,var(--green-a),var(--green-b))}
+  .b-propuesta{background:linear-gradient(160deg,#FFB52E,#F97B1D)}
+  .block:hover{transform:translateY(-6px);box-shadow:var(--shadow-hover)}
+  .block:focus-visible{outline:3px solid #962FBF;outline-offset:3px}
+  .block.active{border-color:#fff;box-shadow:0 0 0 4px #D62976,0 18px 38px rgba(214,41,118,.30)}
+  .pill{
+    display:inline-flex;align-items:center;gap:9px;background:var(--pill);color:#fff;
+    border-radius:999px;padding:8px 16px;font-size:.78rem;font-weight:800;
+    letter-spacing:1.2px;text-transform:uppercase;align-self:flex-start;margin-bottom:14px;
+  }
+  .pill svg{width:17px;height:17px;fill:#fff;flex:none}
+  .block ul{list-style:none;display:flex;flex-direction:column;gap:7px;font-size:.92rem}
+  .block ul li{padding-left:20px;position:relative}
+  .block ul li::before{content:"◆";position:absolute;left:0;top:0;font-size:.7rem;color:rgba(0,0,0,.45)}
+  .b-ingresos ul li::before{color:rgba(255,255,255,.75)}
+  .more{
+    margin-top:auto;padding-top:12px;font-size:.8rem;font-weight:700;opacity:.75;
+    display:flex;align-items:center;gap:6px;
+  }
+  .more .chev{display:inline-block;transition:transform .3s ease}
+  .block.active .more .chev{transform:rotate(180deg)}
+  /* ===== Detail panel ===== */
+  .detail{
+    max-height:0;overflow:hidden;opacity:0;
+    transition:max-height .45s ease,opacity .35s ease,margin .3s ease;
+    background:#fffdf7;border:2px dashed rgba(150,90,0,.35);border-radius:16px;
+    margin:0 20px;
+  }
+  .block.active .detail{max-height:600px;opacity:1;margin:14px 0 4px;padding:16px 18px}
+  .detail h3{font-size:1rem;margin-bottom:8px;color:#8a4b00}
+  .b-ingresos .detail h3{color:#0b7a4b}
+  .detail p{font-size:.9rem;color:#4d463c;margin-bottom:10px}
+  .tags{display:flex;flex-wrap:wrap;gap:7px}
+  .tags span{
+    background:rgba(0,0,0,.07);border-radius:999px;padding:4px 12px;font-size:.78rem;font-weight:600;
+  }
+  .b-ingresos .tags span{background:rgba(255,255,255,.25)}
+  footer{text-align:center;margin-top:30px;color:var(--muted);font-size:.85rem}
+  footer a{color:#D62976;font-weight:700;text-decoration:none}
+  @media (max-width:1020px){
+    .canvas{grid-template-columns:repeat(2,1fr);
+      grid-template-areas:
+        "socios actividades"
+        "socios recursos"
+        "propuesta propuesta"
+        "relacion canales"
+        "segmentos segmentos"
+        "costos costos"
+        "ingresos ingresos";}
+    .block{min-height:0}
+  }
+  @media (max-width:600px){
+    body{padding:20px 14px 44px}
+    .canvas{grid-template-columns:1fr;
+      grid-template-areas:
+        "socios" "actividades" "recursos" "propuesta"
+        "relacion" "canales" "segmentos" "costos" "ingresos";}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none !important}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <span class="logo" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2m0 1.8c-3.1 0-3.5 0-4.8.1-1.1.1-1.5.2-1.9.3-.5.2-.8.4-1.1.7-.3.3-.5.6-.7 1.1-.1.4-.3.8-.3 1.9-.1 1.3-.1 1.6-.1 4.8s0 3.5.1 4.8c.1 1.1.2 1.5.3 1.9.2.5.4.8.7 1.1.3.3.6.5 1.1.7.4.1.8.3 1.9.3 1.3.1 1.6.1 4.8.1s3.5 0 4.8-.1c1.1-.1 1.5-.2 1.9-.3.5-.2.8-.4 1.1-.7.3-.3.5-.6.7-1.1.1-.4.3-.8.3-1.9.1-1.3.1-1.6.1-4.8s0-3.5-.1-4.8c-.1-1.1-.2-1.5-.3-1.9-.2-.5-.4-.8-.7-1.1-.3-.3-.6-.5-1.1-.7-.4-.1-.8-.3-1.9-.3-1.3-.1-1.6-.1-4.8-.1m0 3.1a5 5 0 1 1 0 9.9 5 5 0 0 1 0-9.9m0 8.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4m6.4-8.4a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0"/></svg>
+      </span>
+      <h1>Instagram</h1>
+    </div>
+    <div><span class="subtitle">Business Model Canvas</span></div>
+    <p class="hint">Toca cada bloque para desplegar su explicación detallada · Vuelve a tocar para contraer</p>
+  </header>
+
+  <main class="canvas" id="canvas">
+
+    <section class="block b-socios" tabindex="0" aria-expanded="false" data-block>
+      <span class="pill"><svg viewBox="0 0 24 24"><path d="M16 11a4 4 0 1 0-4-4 4 4 0 0 0 4 4m-8 0a4 4 0 1 0-.6-7.9A5.9 5.9 0 0 1 8 11a5.9 5.9 0 0 1-.6-2.9M16 13c-2.7 0-8 1.3-8 4v3h9v-2.1c2.9-.4 7-1.5 7-3.4v-1.1c-.6.4-4.4.6-8 .6"/></svg>Socios clave</span>
+      <ul>
+        <li>Meta Platforms</li><li>Agencias de publicidad</li><li>Influencers y creadores</li>
+        <li>Proveedores de tecnología y nube (AWS)</li><li>Plataformas de e-commerce</li>
+        <li>Telecomunicaciones y fabricantes</li><li>Marcas y analítica</li>
+      </ul>
+      <span class="more"><span class="chev">▼</span> Ver explicación</span>
+      <div class="detail">
+        <h3>¿Por qué son clave?</h3>
+        <p>Instagram no opera en solitario: <strong>Meta</strong> aporta la infraestructura corporativa, las <strong>agencias y marcas</strong> traen la inversión publicitaria, los <strong>influencers y creadores</strong> generan el contenido que retiene a la audiencia, y los <strong>proveedores de nube como AWS</strong>, lastelecomunicaciones y los fabricantes de smartphones garantizan que la app funcione rápido en cualquier dispositivo.</p>
+        <div class="tags"><span>Meta</span><span>Anunciantes</span><span>Creadores</span><span>AWS / Nube</span><span>E-commerce</span><span>Telecoms</span><span>Marcas</span></div>
+      </div>
+    </section>
+
+    <section class="block b-actividades" tabindex="0" aria-expanded="false" data-block>
+      <span class="pill"><svg viewBox="0 0 24 24"><path d="M19.4 13a7.6 7.6 0 0 0 0-2l2-1.6-2-3.4-2.4 1a7.7 7.7 0 0 0-1.7-1L14.9 3h-4l-.4 2.6a7.7 7.7 0 0 0-1.7 1l-2.4-1-2 3.4L6.4 11a7.6 7.6 0 0 0 0 2l-2 1.6 2 3.4 2.4-1a7.7 7.7 0 0 0 1.7 1l.4 2.6h4l.4-2.6a7.7 7.7 0 0 0 1.7-1l2.4 1 2-3.4ZM12.9 15a2.9 2.9 0 1 1 0-5.8 2.9 2.9 0 0 1 0 5.8"/></svg>Actividades clave</span>
+      <ul>
+        <li>Desarrollo de plataforma y app</li><li>Mejoras de experiencia (UX)</li>
+        <li>Moderación y comunidad</li><li>Gestión publicitaria</li>
+        <li>Datos, algoritmos e IA</li><li>Seguridad y privacidad</li>
+      </ul>
+      <span class="more"><span class="chev">▼</span> Ver explicación</span>
+      <div class="detail">
+        <h3>¿Qué hace Instagram cada día?</h3>
+        <p>El equipo evoluciona la <strong>app y la experiencia de uso</strong>, modera millones de publicaciones para una <strong>comunidad segura</strong>, gestiona la <strong>plataforma publicitaria</strong> y entrena los <strong>algoritmos de recomendación</strong> con analítica de datos, sin descuidar la <strong>seguridad, la privacidad</strong> y las herramientas para creadores.</p>
+        <div class="tags"><span>App y UX</span><span>Moderación</span><span>Anuncios</span><span>Algoritmos</span><span>Seguridad</span></div>
+      </div>
+    </section>
+
+    <section class="block b-propuesta" tabindex="0" aria-expanded="false" data-block>
+      <span class="pill"><svg viewBox="0 0 24 24"><path d="M12 2 9.2 8.6 2 9.3l5.5 4.7L5.8 21 12 17.3 18.2 21l-1.7-7 5.5-4.7-7.2-.7Z"/></svg>Propuesta de valor</span>
+      <ul>
+        <li>Fotos, videos, Reels y Stories</li><li>Narrativa visual y descubrimiento</li>
+        <li>Mensajes directos y comunidad</li><li>Herramientas para creadores y negocios</li>
+        <li>Shopping y alcance global</li><li>Contenido personalizado</li>
+      </ul>
+      <span class="more"><span class="chev">▼</span> Ver explicación</span>
+      <div class="detail">
+        <h3>¿Por qué millones eligen Instagram?</h3>
+        <p>Es el lugar donde <strong>crear y compartir historias visuales</strong> (Reels, Stories, fotos), <strong>descubrir tendencias</strong> gracias al contenido personalizado, <strong>conversar y construir comunidad</strong>, y donde los negocios hacen <strong>marketing de influencers, promoción y venta directa</strong> con alcance global.</p>
+        <div class="tags"><span>Reels</span><span>Stories</span><span>Descubrir</span><span>Comunidad</span><span>Shopping</span><span>Global</span></div>
+      </div>
+    </section>
+
+    <section class="block b-relacion" tabindex="0" aria-expanded="false" data-block>
+      <span class="pill"><svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.7-10-9.3C.4 8.6 2.3 5 5.7 5c2 0 3.4 1.1 4.3 2.6h4C15 6.1 16.4 5 18.4 5c3.4 0 5.3 3.6 3.7 6.7C19.5 16.3 12 21 12 21" transform="scale(.92) translate(1,0)"/></svg>Relación con clientes</span>
+      <ul>
+        <li>Autoservicio y recomendaciones</li><li>Interacción comunitaria</li>
+        <li>Soporte a creadores y empresas</li><li>Notificaciones y mensajería</li>
+        <li>Controles de privacidad</li>
+      </ul>
+      <span class="more"><span class="chev">▼</span> Ver explicación</span>
+      <div class="detail">
+        <h3>¿Cómo fideliza a sus usuarios?</h3>
+        <p>Con un modelo de <strong>autoservicio</strong> (cualquiera publica en segundos), <strong>recomendaciones personalizadas</strong> que enganchan, <strong>comunidad e interacción</strong> constante, <strong>soporte dedicado</strong> a creadores y empresas, y <strong>controles de privacidad</strong> que generan confianza.</p>
+        <div class="tags"><span>Autoservicio</span><span>Recomendaciones</span><span>Comunidad</span><span>Soporte</span><span>Privacidad</span></div>
+      </div>
+    </section>
+
+    <section class="block b-segmentos" tabindex="0" aria-expanded="false" data-block>
+      <span class="pill"><svg viewBox="0 0 24 24"><path d="M16 11a4 4 0 1 0-4-4 4 4 0 0 0 4 4m-8 0a4 4 0 1 0-.6-7.9A5.9 5.9 0 0 1 8 11a5.9 5.9 0 0 1-.6-2.9M16 13c-2.7 0-8 1.3-8 4v3h16v-3c0-2.7-5.3-4-8-4"/></svg>Segmentos de clientes</span>
+      <ul>
+        <li>Usuarios generales</li><li>Creadores e influencers</li>
+        <li>Fotógrafos y artistas</li><li>Negocios, marcas y anunciantes</li>
+        <li>Emprendedores y tiendas en línea</li><li>Millennials y Gen Z</li>
+      </ul>
+      <span class="more"><span class="chev">▼</span> Ver explicación</span>
+      <div class="detail">
+        <h3>¿A quién sirve Instagram?</h3>
+        <p>A tres grandes grupos: <strong>personas</strong> (usuarios, jóvenes Millennials y Gen Z, artistas y figuras públicas), <strong>creadores</strong> (influencers, fotógrafos que viven de su audiencia) y <strong>negocios</strong> (marcas, anunciantes, emprendedores y tiendas que venden y se promocionan).</p>
+        <div class="tags"><span>Usuarios</span><span>Creadores</span><span>Marcas</span><span>Anunciantes</span><span>Gen Z</span></div>
+      </div>
+    </section>
+
+    <section class="block b-recursos" tabindex="0" aria-expanded="false" data-block>
+      <span class="pill"><svg viewBox="0 0 24 24"><path d="M12 3C7 3 3 5 3 8v8c0 3 4 5 9 5s9-2 9-5V8c0-3-4-5-9-5m0 2c4.1 0 7 1.5 7 3s-2.9 3-7 3-7-1.5-7-3 2.9-3 7-3m-7 7.5C6.4 13.4 9 14 12 14s5.6-.6 7-1.5v1.5c0 1.5-2.9 3-7 3s-7-1.5-7-3ZM12 19c-4.1 0-7-1.5-7-3v-1c1.4.9 3.9 1.5 7 1.5s5.6-.6 7-1.5v1c0 1.5-2.9 3-7 3"/></svg>Recursos clave</span>
+      <ul>
+        <li>Infraestructura tecnológica y nube</li><li>Datos de usuarios y analítica</li>
+        <li>Algoritmos y app móvil</li><li>Marca y sistemas de moderación</li>
+        <li>Equipos de ingeniería y datos</li>
+      </ul>
+      <span class="more"><span class="chev">▼</span> Ver explicación</span>
+      <div class="detail">
+        <h3>¿Con qué opera?</h3>
+        <p>Sus activos más valiosos son la <strong>infraestructura en la nube</strong>, los <strong>datos y la analítica</strong> de miles de millones de interacciones, los <strong>algoritmos</strong>, la <strong>app móvil</strong>, la <strong>reputación de marca</strong>, los <strong>sistemas de moderación</strong>, el <strong>talento de ingeniería y ciencia de datos</strong> y su propiedad intelectual.</p>
+        <div class="tags"><span>Nube</span><span>Datos</span><span>Algoritmos</span><span>Marca</span><span>Talento</span></div>
+      </div>
+    </section>
+
+    <section class="block b-canales" tabindex="0" aria-expanded="false" data-block>
+      <span class="pill"><svg viewBox="0 0 24 24"><path d="M3 11v3l4 1 2 5h6l2-5 4-1v-3l-9-5Zm9 1.5A1.8 1.8 0 1 0 13.8 14 1.8 1.8 0 0 0 12 12.5"/></svg>Canales</span>
+      <ul>
+        <li>App móvil y versión web</li><li>App Store y Google Play</li>
+        <li>Publicidad digital</li><li>Influencers y marcas aliadas</li>
+        <li>Email y ecosistema Meta</li>
+      </ul>
+      <span class="more"><span class="chev">▼</span> Ver explicación</span>
+      <div class="detail">
+        <h3>¿Cómo llega a los usuarios?</h3>
+        <p>Principalmente por su <strong>app móvil (iOS/Android) y la web</strong>, distribuida vía <strong>App Store y Google Play</strong>. Crece con <strong>publicidad digital</strong>, <strong>alianzas con influencers y marcas</strong>, el <strong>correo electrónico</strong> y la sinergia con el <strong>ecosistema Meta</strong> (Facebook, WhatsApp).</p>
+        <div class="tags"><span>App móvil</span><span>Web</span><span>Stores</span><span>Influencers</span><span>Meta</span></div>
+      </div>
+    </section>
+
+    <section class="block b-costos" tabindex="0" aria-expanded="false" data-block>
+      <span class="pill"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2m0 2a8 8 0 0 1 5.2 14.1A12.5 12.5 0 0 0 12 16a12.5 12.5 0 0 0-5.2 2.1A8 8 0 0 1 12 4m-1 3v2.1a3 3 0 0 0-2 2.8h2v1H9v2h2v1a3 3 0 0 0 2.6 3l.4.1V16h3a8 8 0 0 1 .9 1.6A8 8 0 0 1 4.3 12H6v-2H4.2a8 8 0 0 1 5.3-5.3V7Z" transform="scale(.95) translate(.6,.6)"/></svg>Estructura de costos</span>
+      <ul>
+        <li>Nube, servidores y almacenamiento</li><li>Salarios e I+D (incluye IA)</li>
+        <li>Moderación y ciberseguridad</li><li>Marketing y atención al cliente</li>
+        <li>Cumplimiento legal y tecnología</li>
+      </ul>
+      <span class="more"><span class="chev">▼</span> Ver explicación</span>
+      <div class="detail">
+        <h3>¿En qué gasta Instagram?</h3>
+        <p>Operar a escala global exige <strong>nube, servidores y almacenamiento</strong> masivos, <strong>salarios de talento</strong> e inversión en <strong>I+D e IA</strong>, equipos de <strong>moderación y ciberseguridad</strong>, <strong>marketing y soporte</strong>, además del <strong>cumplimiento legal y de privacidad</strong> en cada país.</p>
+        <div class="tags"><span>Nube</span><span>Talento</span><span>IA</span><span>Seguridad</span><span>Legal</span></div>
+      </div>
+    </section>
+
+    <section class="block b-ingresos" tabindex="0" aria-expanded="false" data-block>
+      <span class="pill"><svg viewBox="0 0 24 24"><path d="M11 8H6a1 1 0 0 0 0 2h5a3 3 0 0 1 0 6H5a1 1 0 0 0 0 2h1v2h2v-2h2v2h2v-2a3 3 0 0 0 2-2.8V14h3a1 1 0 0 0 0-2h-5a3 3 0 0 1 0-6h6a1 1 0 0 0 0-2h-1V2h-2v2h-2V2h-2v2a3 3 0 0 0-2 2.8v.4A1 1 0 0 0 11 8"/></svg>Fuentes de ingresos</span>
+      <ul>
+        <li>Instagram Ads, Reels Ads y Stories Ads</li><li>Contenido patrocinado y branded content</li>
+        <li>Comisiones de shopping</li><li>Herramientas de negocio y promoción</li>
+        <li>Monetización de creadores</li>
+      </ul>
+      <span class="more"><span class="chev">▼</span> Ver explicación</span>
+      <div class="detail">
+        <h3>¿Cómo gana dinero?</h3>
+        <p>Casi todo llega por la <strong>publicidad</strong> (Instagram Ads, Reels Ads, Stories Ads y contenido patrocinado), más las <strong>comisiones del shopping</strong>, las <strong>herramientas de pago para negocios</strong>, los <strong>servicios promocionales</strong> y los programas de <strong>monetización de creadores</strong>.</p>
+        <div class="tags"><span>Ads</span><span>Reels / Stories</span><span>Patrocinios</span><span>Shopping</span><span>Creadores</span></div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    Canvas interactivo e independiente: solo HTML5 + CSS3 + JavaScript, sin backend ni base de datos ·
+    Basado en el modelo validado con Archify: <a href="instagram-bmc.archify.html">ver diagrama Archify</a>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var blocks = Array.prototype.slice.call(document.querySelectorAll('[data-block]'));
+  function closeOthers(except){
+    blocks.forEach(function(b){
+      if(b !== except && b.classList.contains('active')){
+        b.classList.remove('active');
+        b.setAttribute('aria-expanded','false');
+      }
+    });
+  }
+  function toggle(block){
+    var willOpen = !block.classList.contains('active');
+    closeOthers(block);
+    block.classList.toggle('active', willOpen);
+    block.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+    if(willOpen && window.innerWidth < 1020){
+      setTimeout(function(){
+        block.scrollIntoView({behavior:'smooth', block:'nearest'});
+      }, 120);
+    }
+  }
+  blocks.forEach(function(block){
+    block.addEventListener('click', function(ev){
+      if(ev.target.closest('a')) return;
+      toggle(block);
+    });
+    block.addEventListener('keydown', function(ev){
+      if(ev.key === 'Enter' || ev.key === ' '){
+        ev.preventDefault();
+        toggle(block);
+      }else if(ev.key === 'Escape'){
+        block.classList.remove('active');
+        block.setAttribute('aria-expanded','false');
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>

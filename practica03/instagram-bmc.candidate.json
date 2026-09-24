@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Instagram — Business Model Canvas",
+    "quality_profile": "showcase",
+    "viewBox": [1280, 585],
+    "legend": { "mode": "hidden" },
+    "views": [
+      { "id": "propuesta", "label": "Propuesta de valor", "focus": ["propuesta-valor"], "note": "El centro del canvas: por qué millones crean, descubren y compran en Instagram." },
+      { "id": "motor", "label": "Motor del modelo", "focus": ["socias-clave", "actividades-clave", "recursos-clave", "propuesta-valor"], "note": "Quién ayuda, qué se hace y con qué recursos se sostiene la propuesta." },
+      { "id": "clientes", "label": "Clientes y canales", "focus": ["propuesta-valor", "relacion-clientes", "canales", "segmentos-clientes"], "note": "Cómo se entrega valor, se fideliza y se llega a cada segmento." },
+      { "id": "dinero", "label": "Costos e ingresos", "focus": ["estructura-costos", "fuentes-ingresos", "propuesta-valor"], "note": "Qué cuesta operar la plataforma y cómo se monetiza." },
+      { "id": "flujo", "label": "Flujo principal", "focus": ["socias-clave", "actividades-clave", "propuesta-valor", "relacion-clientes", "canales", "segmentos-clientes"], "note": "Recorrido principal de izquierda a derecha del canvas." }
+    ]
+  },
+  "components": [
+    { "id": "socias-clave", "type": "external", "label": "Socias y socios clave", "sublabel": "Meta · anunciantes · creadores", "pos": [30, 110], "size": [220, 300] },
+    { "id": "actividades-clave", "type": "backend", "label": "Actividades clave", "sublabel": "App · moderación · anuncios", "pos": [270, 110], "size": [220, 135] },
+    { "id": "recursos-clave", "type": "cloud", "label": "Recursos clave", "sublabel": "Infraestructura · datos · IA", "pos": [270, 270], "size": [220, 140] },
+    { "id": "propuesta-valor", "type": "frontend", "label": "Propuesta de valor", "sublabel": "Crear · descubrir · comprar", "pos": [510, 110], "size": [260, 300], "tag": "Reels · Stories · Mensajes", "brand": "instagram" },
+    { "id": "relacion-clientes", "type": "messagebus", "label": "Relación con clientes", "sublabel": "Comunidad · soporte · avisos", "pos": [790, 110], "size": [220, 135] },
+    { "id": "canales", "type": "frontend", "label": "Canales", "sublabel": "App iOS/Android · web", "pos": [790, 270], "size": [220, 140] },
+    { "id": "segmentos-clientes", "type": "external", "label": "Segmentos de clientes", "sublabel": "Usuarios · marcas · anuncios", "pos": [1030, 110], "size": [220, 300] },
+    { "id": "estructura-costos", "type": "database", "label": "Estructura de costos", "sublabel": "Nube · talento · seguridad", "pos": [30, 440], "size": [600, 130] },
+    { "id": "fuentes-ingresos", "type": "backend", "label": "Fuentes de ingresos", "sublabel": "Anuncios · shopping · empresas", "pos": [650, 440], "size": [600, 130] }
+  ],
+  "connections": [
+    { "id": "socias-a-actividades", "from": "socias-clave", "to": "actividades-clave", "label": "habilitan", "labelAt": [260, 425] },
+    { "id": "actividades-a-propuesta", "from": "actividades-clave", "to": "propuesta-valor", "label": "construyen", "labelAt": [500, 106] },
+    { "id": "recursos-a-propuesta", "from": "recursos-clave", "to": "propuesta-valor", "label": "soportan", "labelAt": [500, 425] },
+    { "id": "propuesta-a-relacion", "from": "propuesta-valor", "to": "relacion-clientes", "label": "fideliza", "labelAt": [780, 425] },
+    { "id": "relacion-a-canales", "from": "relacion-clientes", "to": "canales", "label": "continúa en", "labelAt": [900, 257] },
+    { "id": "canales-a-segmentos", "from": "canales", "to": "segmentos-clientes", "label": "distribuyen", "labelAt": [1020, 425] }
+  ],
+  "cards": [
+    { "dot": "amber", "title": "Motor del modelo", "items": ["Meta, agencias, creadores, nube AWS y marcas", "App, moderación, anuncios, datos e IA"] },
+    { "dot": "orange", "title": "Propuesta de valor", "items": ["Reels, Stories, mensajes y shopping global", "Crear, conectar y vender"] },
+    { "dot": "cyan", "title": "Clientes y canales", "items": ["Usuarios, creadores, marcas y Gen Z", "App, web y ecosistema Meta"] },
+    { "dot": "emerald", "title": "Dinero", "items": ["Nube, talento, IA, seguridad y marketing", "Ads, patrocinios y shopping"] }
+  ]
+}
