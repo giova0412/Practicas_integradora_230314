@@ -4,6 +4,9 @@
 > Carrera: Desarrollo de Software · Cuatrimestre: 230314
 
 ---
+# 🔗 Diagrama interactivo en línea
+
+▶️ **[Ver diagrama en GitHub Pages](https://giova0412.github.io/Practicas_integradora_230314/)**
 
 ## 📋 Descripción
 
