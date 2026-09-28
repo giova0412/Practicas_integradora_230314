@@ -2,6 +2,14 @@
 
 Esta práctica consistió en la generación de un **Business Model Canvas** interactivo para Instagram. A diferencia de las prácticas anteriores, este diagrama fue creado utilizando **Open Code** en lugar de Codex.
 
+---
+
+## 🔗 Ver Diagrama en Línea (GitHub Pages)
+
+▶️ **[https://giova0412.github.io/Practicas_integradora_230314/practica03/instagram-bmc.archify.html](https://giova0412.github.io/Practicas_integradora_230314/practica03/instagram-bmc.archify.html)**
+
+---
+
 ## 🤖 Prompt utilizado
 
 ```text

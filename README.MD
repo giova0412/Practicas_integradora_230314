@@ -5,11 +5,10 @@
 
 ---
 
-## 🔗 Diagrama interactivo en línea
+## 🔗 Diagramas interactivos en línea
 
-▶️ **[Ver diagrama en GitHub Pages](https://giova0412.github.io/Practicas_integradora_230314/)**
-
-El diagrama puede visualizarse en modo claro u oscuro, con navegación guiada por vistas y modo presentación integrado.
+- 🏗️ **Práctica 02 — Arquitectura Mobile Platform:** [https://giova0412.github.io/Practicas_integradora_230314/](https://giova0412.github.io/Practicas_integradora_230314/)
+- 📊 **Práctica 03 — Instagram Business Model Canvas:** [https://giova0412.github.io/Practicas_integradora_230314/practica03/instagram-bmc.archify.html](https://giova0412.github.io/Practicas_integradora_230314/practica03/instagram-bmc.archify.html)
 
 ---
 
@@ -21,11 +20,11 @@ Este repositorio documenta las prácticas de la materia **Integradora** correspo
 
 ## 📌 Tabla de prácticas
 
-| No. | Práctica | Descripción | Estado |
+| No. | Práctica | Descripción | Enlace en línea |
 | :---: | --- | --- | :---: |
 | 01 | Práctica 01 | Actividades correspondientes a la primera práctica de la materia | Concluida |
-| 02 | Boceto de Arquitectura de Proyecto Integrador con Archify | Instalación y configuración de Codex-CLI y Archify, generación de un modelo arquitectónico interactivo y publicación mediante GitHub Pages | Concluida |
-| 03 | Business Model Canvas de Instagram con Archify | Modelado e implementación interactiva del Business Model Canvas de Instagram con análisis detallado por bloque y publicación en GitHub Pages | Concluida |
+| 02 | Boceto de Arquitectura de Proyecto Integrador con Archify | Instalación y configuración de Codex-CLI y Archify, generación de un modelo arquitectónico interactivo y publicación mediante GitHub Pages | [https://giova0412.github.io/Practicas_integradora_230314/](https://giova0412.github.io/Practicas_integradora_230314/) |
+| 03 | Business Model Canvas de Instagram con Archify | Modelado e implementación interactiva del Business Model Canvas de Instagram con análisis detallado por bloque | [https://giova0412.github.io/Practicas_integradora_230314/practica03/instagram-bmc.archify.html](https://giova0412.github.io/Practicas_integradora_230314/practica03/instagram-bmc.archify.html) |
 
 ---
 
