@@ -1,0 +1,142 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "SICPES — Business Model Canvas",
+    "subtitle": "Sistema Integral de Control de Pensión de Estudiantes",
+    "quality_profile": "showcase",
+    "viewBox": [1240, 540]
+  },
+  "components": [
+    {
+      "id": "socios",
+      "type": "external",
+      "label": "Socios clave",
+      "sublabel": "Posibles",
+      "tag": "B8",
+      "pos": [30, 40],
+      "size": [200, 300]
+    },
+    {
+      "id": "actividades",
+      "type": "backend",
+      "label": "Actividades clave",
+      "sublabel": "Operación",
+      "tag": "B7",
+      "pos": [250, 40],
+      "size": [200, 140]
+    },
+    {
+      "id": "recursos",
+      "type": "database",
+      "label": "Recursos clave",
+      "sublabel": "Stack",
+      "tag": "B6",
+      "pos": [250, 200],
+      "size": [200, 140]
+    },
+    {
+      "id": "propuesta",
+      "type": "frontend",
+      "label": "Propuesta de valor",
+      "sublabel": "Núcleo",
+      "tag": "B2",
+      "pos": [470, 40],
+      "size": [260, 300]
+    },
+    {
+      "id": "relaciones",
+      "type": "messagebus",
+      "label": "Relaciones clientes",
+      "sublabel": "Autoservicio",
+      "tag": "B4",
+      "pos": [750, 40],
+      "size": [200, 140]
+    },
+    {
+      "id": "canales",
+      "type": "cloud",
+      "label": "Canales",
+      "sublabel": "Web",
+      "tag": "B3",
+      "pos": [750, 200],
+      "size": [200, 140]
+    },
+    {
+      "id": "segmentos",
+      "type": "external",
+      "label": "Segmentos clientes",
+      "sublabel": "Clientes",
+      "tag": "B1",
+      "pos": [970, 40],
+      "size": [200, 300]
+    },
+    {
+      "id": "costos",
+      "type": "cloud",
+      "label": "Estructura de costos",
+      "sublabel": "Operativos",
+      "tag": "B9a",
+      "pos": [30, 360],
+      "size": [595, 140]
+    },
+    {
+      "id": "ingresos",
+      "type": "backend",
+      "label": "Ingresos futuros",
+      "sublabel": "Futuro",
+      "tag": "B9b",
+      "pos": [645, 360],
+      "size": [525, 140]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Operación SICPES",
+      "wraps": ["actividades", "recursos", "propuesta", "relaciones", "canales"]
+    },
+    {
+      "kind": "region",
+      "label": "Entorno y sostenibilidad futura",
+      "wraps": ["socios", "segmentos", "costos", "ingresos"]
+    }
+  ],
+  "connections": [],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "B2 · Propuesta de valor",
+      "items": [
+        "Registro de estudiantes, habitaciones, reservas y asignación",
+        "Pagos, adeudos y entradas/salidas; menos errores, web y seguridad"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "B1 · B3 · B4 — Clientes y acceso",
+      "items": [
+        "B1: administradores, instituciones con alojamiento, estudiantes",
+        "B3/B4: web en PC, tableta y teléfono; correo, autoservicio y soporte"
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "B6 · B7 — Recursos y actividades",
+      "items": [
+        "B6: Node.js, Express, MongoDB, Mongoose, HTML/CSS/JS, bcryptjs",
+        "B6/B7: Nodemailer, dotenv, Git/GitHub, equipo y documentación",
+        "B7: desarrollo, mantenimiento, reportes, seguridad y pruebas"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "B8 · B9 — Socios y sostenibilidad",
+      "items": [
+        "B8 posible, no contratos: instituciones, nube, correo y herramientas",
+        "B9 costos sin presupuestos: servidores, nube, respaldos y soporte",
+        "B9 ingresos solo futuro sin precios: licencias y mantenimiento"
+      ]
+    }
+  ]
+}
