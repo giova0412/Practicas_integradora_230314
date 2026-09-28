@@ -14974,5 +14974,242 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       }
     });
   </script>
+<!-- BMC-GUIA-INTERACTIVA: Información exclusiva de Instagram por bloque. -->
+<style id="bmc-guia-style">
+  .bmc-ayuda {
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
+    border-left: 4px solid var(--frontend-stroke, #22d3ee);
+    border-radius: .75rem;
+    padding: .9rem 1.1rem;
+    margin: 1rem 0;
+    color: var(--text);
+    font-size: .85rem;
+    line-height: 1.5;
+  }
+  .bmc-ayuda strong { color: var(--frontend-stroke, #22d3ee); }
+  .bmc-bar {
+    display: flex; flex-wrap: wrap; gap: .5rem;
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
+    border-radius: .75rem;
+    padding: .9rem;
+    margin: 0 0 1rem 0;
+  }
+  .bmc-bar-title {
+    width: 100%; font-size: .72rem; font-weight: 800;
+    letter-spacing: .08em; text-transform: uppercase;
+    color: var(--text-muted); margin-bottom: .15rem;
+  }
+  .bmc-chip {
+    border: 1px solid var(--panel-border);
+    background: transparent;
+    color: var(--text);
+    border-radius: 999px;
+    padding: .45rem .8rem;
+    font-size: .75rem; font-weight: 600; font-family: inherit;
+    cursor: pointer; transition: transform .15s, border-color .15s, background .15s;
+  }
+  .bmc-chip:hover { border-color: var(--frontend-stroke); transform: translateY(-1px); }
+  .bmc-chip.active { border-color: var(--frontend-stroke); background: var(--frontend-fill); }
+  .bmc-chip .n {
+    display: inline-grid; place-items: center;
+    width: 1.25rem; height: 1.25rem; border-radius: 50%;
+    background: var(--frontend-stroke); color: #06121f;
+    font-size: .68rem; font-weight: 800; margin-right: .4rem;
+  }
+  svg [data-node-id] { cursor: pointer !important; }
+  svg [data-node-id]:hover { filter: brightness(1.18); }
+  svg [data-node-id]:focus-visible { outline: 2px dashed var(--frontend-stroke); outline-offset: 3px; }
+  svg.bmc-dim [data-node-id] { opacity: .28 !important; transition: opacity .2s; }
+  svg.bmc-dim [data-node-id].bmc-selected { opacity: 1 !important; filter: drop-shadow(0 0 14px rgba(34,211,238,.55)); }
+  #bmc-backdrop[hidden] { display: none !important; }
+  #bmc-backdrop {
+    position: fixed; inset: 0; z-index: 9999;
+    background: rgba(2,6,23,.62); backdrop-filter: blur(5px);
+    display: flex; align-items: center; justify-content: center; padding: 1rem;
+  }
+  #bmc-modal {
+    background: var(--toolbar-menu-bg, #0f172a);
+    color: var(--toolbar-text, #e2e8f0);
+    border: 1px solid var(--toolbar-border, #334155);
+    border-radius: 1rem;
+    width: min(36rem, 100%); max-height: 88vh; overflow: auto;
+    padding: 1.4rem 1.4rem 1.1rem;
+    box-shadow: 0 30px 80px rgba(0,0,0,.45);
+    animation: bmc-in .22s ease-out both;
+  }
+  @keyframes bmc-in { from { transform: translateY(10px) scale(.98); opacity: 0; } to { transform: none; opacity: 1; } }
+  #bmc-modal .bmc-kicker { font-size: .65rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--text-muted); }
+  #bmc-modal h2 { font-size: 1.25rem; margin: .25rem 0 .75rem; line-height: 1.3; }
+  #bmc-modal .bmc-num {
+    display: inline-grid; place-items: center; width: 1.7rem; height: 1.7rem;
+    border-radius: 50%; background: var(--frontend-stroke); color: #06121f;
+    font-size: .85rem; font-weight: 800; margin-right: .55rem; vertical-align: middle;
+  }
+  #bmc-modal .bmc-block { margin: .8rem 0; padding: .8rem .9rem; border: 1px solid var(--toolbar-border); border-radius: .65rem; }
+  #bmc-modal .bmc-block h4 { font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: .35rem; color: var(--text-muted); }
+  #bmc-modal .bmc-block p, #bmc-modal .bmc-block li { font-size: .85rem; line-height: 1.55; }
+  #bmc-modal .bmc-block ul { padding-left: 1.1rem; margin: .2rem 0 0; }
+  #bmc-modal .bmc-nav { display: flex; gap: .5rem; flex-wrap: wrap; margin-top: 1rem; }
+  #bmc-modal .bmc-nav button {
+    border: 1px solid var(--toolbar-border); background: transparent; color: inherit;
+    border-radius: .6rem; padding: .55rem .9rem; font-family: inherit;
+    font-size: .8rem; font-weight: 700; cursor: pointer;
+  }
+  #bmc-modal .bmc-nav button:hover { background: var(--toolbar-hover); }
+  #bmc-modal #bmc-close { background: var(--frontend-stroke); border-color: var(--frontend-stroke); color: #06121f; }
+  #bmc-tip {
+    position: fixed; z-index: 10000; pointer-events: none;
+    background: #06121f; color: #fff; font-size: .72rem; font-weight: 700;
+    padding: .35rem .6rem; border-radius: .5rem; border: 1px solid rgba(255,255,255,.2);
+    transform: translate(-50%, -135%); white-space: nowrap; display: none;
+  }
+  @media (max-width: 640px) {
+    #bmc-modal { padding: 1rem; }
+    .bmc-chip { font-size: .7rem; }
+  }
+</style>
+<div id="bmc-tip" aria-hidden="true">Clic para ver análisis de Instagram</div>
+<div id="bmc-backdrop" hidden>
+  <div id="bmc-modal" role="dialog" aria-modal="true" aria-labelledby="bmc-titulo">
+    <div class="bmc-kicker" id="bmc-kicker">Business Model Canvas · Instagram</div>
+    <h2 id="bmc-titulo"><span class="bmc-num" id="bmc-num">1</span><span id="bmc-nombre">Propuesta de valor</span></h2>
+    <div class="bmc-block"><h4>Análisis Detallado de Instagram</h4><div id="bmc-ejemplo" style="margin-top:.4rem"></div></div>
+    <div class="bmc-nav">
+      <button type="button" id="bmc-prev">← Anterior</button>
+      <button type="button" id="bmc-next">Siguiente →</button>
+      <button type="button" id="bmc-close">Cerrar ✕</button>
+    </div>
+  </div>
+</div>
+<script id="bmc-guia-script">
+(function () {
+  var ORDEN = ["socias-clave","actividades-clave","recursos-clave","propuesta-valor","relacion-clientes","canales","segmentos-clientes","estructura-costos","fuentes-ingresos"];
+  var INFO = {
+    "socias-clave": { n: 1, nombre: "Socias y socios clave",
+      ejemplo: "<ul style='padding-left:1.2rem;margin:.2rem 0;line-height:1.6'><li><strong>Meta Platforms:</strong> Empresa matriz que proporciona la infraestructura técnica compartida, centros de datos globales, financiamiento corporativo, respaldo legal y sinergia directa con Facebook, WhatsApp y Threads.</li><li><strong>Creadores e Influencers:</strong> Socios estratégicos que generan el contenido atractivo y viral que mantiene el enganche diario de los usuarios.</li><li><strong>Anunciantes y Agencias:</strong> Marcas globales y PyMEs que compran inventario publicitario e invierten el presupuesto que sostiene financieramente el negocio.</li><li><strong>Proveedores de Nube y Redes:</strong> Infraestructura de servidores globales (AWS/CDNs) y proveedores de telecomunicaciones que garantizan la transmisión rápida de fotos y video en alta definición.</li><li><strong>Tiendas de Aplicaciones:</strong> Apple App Store y Google Play Store como canales de distribución y actualización de la app.</li><li><strong>Plataformas de E-commerce:</strong> Integraciones con Shopify, BigCommerce y pasarelas de pago para habilitar Instagram Shopping.</li></ul>" },
+    "actividades-clave": { n: 2, nombre: "Actividades clave",
+      ejemplo: "<ul style='padding-left:1.2rem;margin:.2rem 0;line-height:1.6'><li><strong>Desarrollo y Optimización de Software:</strong> Ingeniería continua para mantener las aplicaciones móviles (iOS/Android) y web rápidas, estables y sin fallas de rendimiento.</li><li><strong>Ingeniería de Algoritmos e IA:</strong> Modelos de aprendizaje automático (Machine Learning) que personalizan el feed de cada usuario, seleccionan los Reels más relevantes y optimizan la entrega de anuncios.</li><li><strong>Moderación y Ciberseguridad:</strong> Filtros automatizados de Inteligencia Artificial combinados con revisión humana para eliminar spam, desinformación, ciberacoso y contenido no apto.</li><li><strong>Gestión de la Plataforma de Anuncios:</strong> Administración de Meta Ads Manager, garantizando métricas precisas, pujas en tiempo real y retorno de inversión para marcas.</li><li><strong>Herramientas para Creadores:</strong> Innovación en formatos multimedia (Reels, filtros AR, Stories interactivas) y herramientas de monetización directa.</li></ul>" },
+    "recursos-clave": { n: 3, nombre: "Recursos clave",
+      ejemplo: "<ul style='padding-left:1.2rem;margin:.2rem 0;line-height:1.6'><li><strong>Grafo de Datos de Usuarios:</strong> Base de conocimiento masiva con datos demográficos, intereses y patrones de comportamiento de más de 2,000 millones de usuarios activos.</li><li><strong>Infraestructura de Centros de Datos:</strong> Red global de servidores de alta velocidad y redes CDN capaces de procesar petabytes de contenido multimedia diariamente.</li><li><strong>Algoritmos Propietarios de Recomendación:</strong> Modelos de Inteligencia Artificial protegidos por patentes que determinan la personalización del contenido y la subasta publicitaria.</li><li><strong>Talento Humano de Elite:</strong> Equipos especializados de científicos de datos, ingenieros de IA, diseñadores UX/UI y expertos en seguridad de la información.</li><li><strong>Marca Global de Alto Valor:</strong> Marca universalmente reconocida que genera confianza instantánea para usuarios y anunciantes.</li></ul>" },
+    "propuesta-valor": { n: 4, nombre: "Propuesta de valor",
+      ejemplo: "<ul style='padding-left:1.2rem;margin:.2rem 0;line-height:1.6'><li><strong>Para Usuarios:</strong> Expresión de identidad visual, entretenimiento inmediato con Reels y Stories, comunicación directa (DMs) y descubrimiento de tendencias de vida.</li><li><strong>Para Creadores e Influencers:</strong> Escenario digital de alcance mundial para construir audiencias masivas, herramientas de creación profesional y vías de monetización.</li><li><strong>Para Anunciantes y Negocios:</strong> Acceso a más de 2,000 millones de personas con segmentación hiper-precisa, formatos publicitarios inmersivos y canal directo de conversión (Instagram Shopping).</li></ul>" },
+    "relacion-clientes": { n: 5, nombre: "Relación con clientes",
+      ejemplo: "<ul style='padding-left:1.2rem;margin:.2rem 0;line-height:1.6'><li><strong>Autoservicio Automatizado:</strong> Los usuarios y anunciantes crean cuentas, publican contenido y configuran campañas de forma autónoma sin intervención humana directa.</li><li><strong>Personalización Algorítmica Continua:</strong> Adaptación dinámica de la experiencia según las interacciones de cada usuario, haciendo que cada feed sea exclusivo.</li><li><strong>Fomento de Comunidad:</strong> Mecanismos diseñados para impulsar la interacción constante (likes, comentarios, encuestas, stickers interactivos y transmisiones en vivo).</li><li><strong>Soporte Diferenciado:</strong> Atención prioritaria, verificación de perfil (Blue Tick) y asesoría en publicidad para marcas corporativas y creadores verificados.</li></ul>" },
+    "canales": { n: 6, nombre: "Canales",
+      ejemplo: "<ul style='padding-left:1.2rem;margin:.2rem 0;line-height:1.6'><li><strong>Aplicación Móvil Principal:</strong> App nativa para iOS y Android como el canal primario e intensivo de consumo y creación de contenido.</li><li><strong>Plataforma Web (instagram.com):</strong> Navegador optimizado para la visualización en escritorio, mensajería directa y gestión básica.</li><li><strong>Tiendas de Aplicaciones:</strong> App Store y Google Play Store como los canales oficiales de distribución, descarga y actualización.</li><li><strong>Administrador Publicitario Meta Ads:</strong> Plataforma unificada para que las empresas gestionen sus campañas en Instagram y Facebook.</li><li><strong>Notificaciones Push Inteligentes:</strong> Sistema de alertas móviles que re-engancha a los usuarios al detectar actividad de su interés.</li></ul>" },
+    "segmentos-clientes": { n: 7, nombre: "Segmentos de clientes",
+      ejemplo: "<ul style='padding-left:1.2rem;margin:.2rem 0;line-height:1.6'><li><strong>Usuarios Generales (Gen Z y Millennials):</strong> Personas que buscan entretenimiento visual, interacción social y tendencias de cultura pop.</li><li><strong>Creadores de Contenido e Influencers:</strong> Figuras públicas, artistas y streamers que construyen su comunidad y negocio sobre la plataforma.</li><li><strong>Empresas y Emprendedores (PyMEs):</strong> Negocios que utilizan Instagram como catálogo visual, canal de atención y punto de ventas.</li><li><strong>Anunciantes Globales y Agencias:</strong> Marcas corporativas que invierten presupuestos masivos en campañas publicitarias de gran alcance.</li><li><strong>Compradores Digitales:</strong> Consumidores que descubren y adquieren productos de moda y estilo mediante Instagram Shopping.</li></ul>" },
+    "estructura-costos": { n: 8, nombre: "Estructura de costos",
+      ejemplo: "<ul style='padding-left:1.2rem;margin:.2rem 0;line-height:1.6'><li><strong>Servidores e Infraestructura de Nube:</strong> Gastos masivos de almacenamiento de imágenes/videos HD y consumo de ancho de banda a escala global.</li><li><strong>Salarios de Ingeniería y Personal:</strong> Remuneraciones competitivas para ingenieros de software, científicos de datos y personal ejecutivo.</li><li><strong>Investigación y Desarrollo (I+D):</strong> Inversión continua en Inteligencia Artificial, Realidad Aumentada y desarrollo de nuevas herramientas.</li><li><strong>Moderación de Contenido y Ciberseguridad:</strong> Costos en sistemas de detección automatizada de infracciones, privacidad y auditorías de seguridad.</li><li><strong>Marketing y Asuntos Legales:</strong> Campañas de posicionamiento de marca, eventos para creadores y cumplimiento normativo internacional.</li></ul>" },
+    "fuentes-ingresos": { n: 9, nombre: "Fuentes de ingresos",
+      ejemplo: "<ul style='padding-left:1.2rem;margin:.2rem 0;line-height:1.6'><li><strong>Publicidad en Feed y Stories:</strong> Anuncios patrocinados intercalados en el contenido habitual de los usuarios (Meta Ads Manager).</li><li><strong>Anuncios en Reels y Explore:</strong> Formatos publicitarios de video corto y colocación estratégica en la sección de descubrimiento.</li><li><strong>Herramientas de Contenido Patrocinado:</strong> Facilitación de alianzas comerciales etiquetadas formalmente entre marcas y creadores.</li><li><strong>Comisiones por Instagram Shopping:</strong> Tarifas porcentuales por transacciones completadas directamente en la app.</li><li><strong>Monetización de Creadores y Suscripciones:</strong> Porcentaje sobre suscripciones a contenido exclusivo de creadores y venta de insignias en transmisiones en vivo.</li></ul>" }
+  };
+  var idx = 0, lastFocus = null;
+  var backdrop = document.getElementById("bmc-backdrop");
+  var tip = document.getElementById("bmc-tip");
+  function svg() { return document.querySelector(".diagram-container svg"); }
+  function pintar(id) {
+    var s = svg(); if (!s) return;
+    s.classList.add("bmc-dim");
+    Array.prototype.forEach.call(s.querySelectorAll("[data-node-id]"), function (el) {
+      el.classList.toggle("bmc-selected", el.getAttribute("data-node-id") === id);
+    });
+  }
+  function despintar() {
+    var s = svg(); if (!s) return;
+    s.classList.remove("bmc-dim");
+    Array.prototype.forEach.call(s.querySelectorAll("[data-node-id].bmc-selected"), function (el) { el.classList.remove("bmc-selected"); });
+    Array.prototype.forEach.call(document.querySelectorAll(".bmc-chip.active"), function (b) { b.classList.remove("active"); });
+  }
+  function abrir(id) {
+    var d = INFO[id]; if (!d) return;
+    idx = ORDEN.indexOf(id);
+    lastFocus = document.activeElement;
+    document.getElementById("bmc-num").textContent = d.n;
+    document.getElementById("bmc-nombre").textContent = d.nombre;
+    document.getElementById("bmc-ejemplo").innerHTML = d.ejemplo;
+    document.getElementById("bmc-kicker").textContent = "Bloque " + d.n + " de 9 · Business Model Canvas · Instagram";
+    backdrop.hidden = false;
+    pintar(id);
+    Array.prototype.forEach.call(document.querySelectorAll(".bmc-chip"), function (b) {
+      b.classList.toggle("active", b.getAttribute("data-bmc") === id);
+    });
+    var n = document.querySelector('.diagram-container svg [data-node-id="' + id + '"]');
+    if (n && n.scrollIntoView) { try { n.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "smooth" }); } catch (_) {} }
+    document.getElementById("bmc-close").focus();
+  }
+  function cerrar() {
+    backdrop.hidden = true; despintar();
+    if (lastFocus && lastFocus.focus) { try { lastFocus.focus(); } catch (_) {} }
+  }
+  function paso(dir) {
+    idx = (idx + dir + ORDEN.length) % ORDEN.length;
+    abrir(ORDEN[idx]);
+  }
+  document.getElementById("bmc-close").addEventListener("click", cerrar);
+  document.getElementById("bmc-prev").addEventListener("click", function () { paso(-1); });
+  document.getElementById("bmc-next").addEventListener("click", function () { paso(1); });
+  backdrop.addEventListener("click", function (e) { if (e.target === backdrop) cerrar(); });
+  document.addEventListener("keydown", function (e) {
+    if (backdrop.hidden) return;
+    if (e.key === "Escape") { e.stopPropagation(); cerrar(); }
+    if (e.key === "ArrowRight") paso(1);
+    if (e.key === "ArrowLeft") paso(-1);
+  }, true);
+  function barra() {
+    var container = document.querySelector(".container"); if (!container) return;
+    var diagram = document.querySelector(".diagram-container"); if (!diagram) return;
+    if (document.getElementById("bmc-barra")) return;
+    var ayuda = document.createElement("div");
+    ayuda.className = "bmc-ayuda";
+    ayuda.innerHTML = "<strong>Diagrama interactivo:</strong> Haz <strong>clic en cualquier bloque del canvas</strong> (o en los botones de abajo) para ver el <strong>análisis detallado de Instagram</strong>. Usa ← → para navegar y Esc para cerrar.";
+    var bar = document.createElement("div");
+    bar.className = "bmc-bar"; bar.id = "bmc-barra";
+    var t = document.createElement("div");
+    t.className = "bmc-bar-title"; t.textContent = "Explora cada sección — clic para ver análisis de Instagram:";
+    bar.appendChild(t);
+    ORDEN.forEach(function (id) {
+      var d = INFO[id];
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "bmc-chip"; b.setAttribute("data-bmc", id);
+      b.innerHTML = "";
+      var s1 = document.createElement("span"); s1.className = "n"; s1.textContent = d.n;
+      b.appendChild(s1);
+      b.appendChild(document.createTextNode(d.nombre));
+      b.addEventListener("click", function () { abrir(id); });
+      bar.appendChild(b);
+    });
+    container.insertBefore(bar, diagram);
+    container.insertBefore(ayuda, bar);
+  }
+  function engancharNodos() {
+    var nodos = document.querySelectorAll('svg [data-node-id]');
+    Array.prototype.forEach.call(nodos, function (n) {
+      var id = n.getAttribute("data-node-id");
+      if (!INFO[id] || n.getAttribute("data-bmc-ready")) return;
+      n.setAttribute("data-bmc-ready", "1");
+      n.style.cursor = "pointer";
+      n.addEventListener("click", function () { abrir(id); });
+      n.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); abrir(id); }
+      });
+      n.addEventListener("mouseenter", function (e) {
+        tip.style.display = "block";
+        tip.textContent = INFO[id].nombre + " — Clic para ver análisis de Instagram";
+      });
+      n.addEventListener("mousemove", function (e) {
+        tip.style.left = e.clientX + "px"; tip.style.top = e.clientY + "px";
+      });
+      n.addEventListener("mouseleave", function () { tip.style.display = "none"; });
+    });
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", function () { barra(); engancharNodos(); });
+  } else { barra(); engancharNodos(); }
+  setTimeout(function () { barra(); engancharNodos(); }, 800);
+})();
+</script>
 </body>
 </html>
