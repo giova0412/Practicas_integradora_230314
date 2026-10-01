@@ -7,8 +7,8 @@
 
 ## 🔗 Diagramas interactivos en línea
 
-- 🏗️ **Práctica 02 — Arquitectura Mobile Platform:** [https://giova0412.github.io/Practicas_integradora_230314/](https://giova0412.github.io/Practicas_integradora_230314/)
-- 📊 **Práctica 03 — Instagram Business Model Canvas:** [https://giova0412.github.io/Practicas_integradora_230314/practica03/instagram-bmc.archify.html](https://giova0412.github.io/Practicas_integradora_230314/practica03/instagram-bmc.archify.html)
+- 🏗️ **Práctica 02 — Arquitectura Mobile Platform:** [practica02/](https://github.com/giova0412/Practicas_integradora_230314/tree/master/practica02)
+- 📊 **Práctica 03 — Instagram Business Model Canvas:** [practica03/](https://github.com/giova0412/Practicas_integradora_230314/tree/master/practica03)
 
 ---
 
@@ -23,8 +23,8 @@ Este repositorio documenta las prácticas de la materia **Integradora** correspo
 | No. | Práctica | Descripción | Enlace en línea |
 | :---: | --- | --- | :---: |
 | 01 | Práctica 01 | Actividades correspondientes a la primera práctica de la materia | Concluida |
-| 02 | Boceto de Arquitectura de Proyecto Integrador con Archify | Instalación y configuración de Codex-CLI y Archify, generación de un modelo arquitectónico interactivo y publicación mediante GitHub Pages | [https://giova0412.github.io/Practicas_integradora_230314/](https://giova0412.github.io/Practicas_integradora_230314/) |
-| 03 | Business Model Canvas de Instagram con Archify | Modelado e implementación interactiva del Business Model Canvas de Instagram con análisis detallado por bloque | [https://giova0412.github.io/Practicas_integradora_230314/practica03/instagram-bmc.archify.html](https://giova0412.github.io/Practicas_integradora_230314/practica03/instagram-bmc.archify.html) |
+| 02 | Boceto de Arquitectura de Proyecto Integrador con Archify | Instalación y configuración de Codex-CLI y Archify, generación de un modelo arquitectónico interactivo y publicación mediante GitHub Pages | [📂 practica02/](https://github.com/giova0412/Practicas_integradora_230314/tree/master/practica02) |
+| 03 | Business Model Canvas de Instagram con Archify | Modelado e implementación interactiva del Business Model Canvas de Instagram con análisis detallado por bloque | [📂 practica03/](https://github.com/giova0412/Practicas_integradora_230314/tree/master/practica03) |
 
 ---
 
