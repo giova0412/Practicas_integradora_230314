@@ -7,8 +7,8 @@
   "visualReview": "pending",
   "artifact": {
     "path": "C:\\Users\\giova\\OneDrive\\Desktop\\Practicas_integradora_230314\\practica06\\secuencia-pantallas.archify.html",
-    "sha256": "9f35c4c7f29637816185995b221e4d6c9045343a8e0f79f515f9b1708e39afc2",
-    "bytes": 822618
+    "sha256": "7f9db4147942fe42703eda09a543efe2dc72200b73ebbb21a468d81776ebd9d3",
+    "bytes": 822504
   },
   "state": {
     "detail": "read",
@@ -95,8 +95,8 @@
         "overflowX": false,
         "overflowY": false,
         "ok": true,
-        "readerWidth": 1345,
-        "diagramWidth": 1315,
+        "readerWidth": 1313,
+        "diagramWidth": 1283,
         "viewBoxWidth": 1047,
         "minimumProjectedNodeTextPx": 8,
         "minimumProjectedNodeText": "entrar",
@@ -225,8 +225,8 @@
         "overflowX": false,
         "overflowY": false,
         "ok": true,
-        "readerWidth": 1345,
-        "diagramWidth": 1315,
+        "readerWidth": 1313,
+        "diagramWidth": 1283,
         "viewBoxWidth": 1047,
         "minimumProjectedNodeTextPx": 8,
         "minimumProjectedNodeText": "entrar",
@@ -354,8 +354,8 @@
         "overflowX": false,
         "overflowY": false,
         "ok": true,
-        "readerWidth": 1345,
-        "diagramWidth": 1315,
+        "readerWidth": 1313,
+        "diagramWidth": 1283,
         "viewBoxWidth": 1047,
         "minimumProjectedNodeTextPx": 8,
         "minimumProjectedNodeText": "entrar",

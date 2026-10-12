@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Práctica 06 — Secuencia de Pantallas Instagram (Oyente y Artista)</title>
+<title>Práctica 06 — Secuencia de Pantallas Instagram (Admin y Usuario normal)</title>
 <style>
 :root{
   --bg:#0f172a; --panel:#1e293b; --panel2:#0b1220; --line:#334155;
@@ -94,10 +94,10 @@ html[data-theme="dark"] .notch{background:#ffffff2e}
 @media (max-width:640px){.arrow{min-width:70px}.arrow .lbl{font-size:.62rem}}
 .cross{margin:0 0 1rem;border:1px solid var(--accent);border-radius:12px;padding:.7rem 1rem;background:var(--panel2);font-size:.85rem}
 .cross b{color:var(--accent)}
-body[data-role="oyente"] .lane[data-lane="artista"]{opacity:.32}
-body[data-role="artista"] .lane[data-lane="oyente"]{opacity:.32}
-body[data-role="oyente"] .lane[data-lane="artista"] .phone,
-body[data-role="artista"] .lane[data-lane="oyente"] .phone{filter:grayscale(1)}
+body[data-role="usuario"] .lane[data-lane="admin"]{opacity:.32}
+body[data-role="admin"] .lane[data-lane="usuario"]{opacity:.32}
+body[data-role="usuario"] .lane[data-lane="admin"] .phone,
+body[data-role="admin"] .lane[data-lane="usuario"] .phone{filter:grayscale(1)}
 .detail{position:sticky;bottom:0;margin-top:1rem;border:1px solid var(--accent);background:var(--panel);border-radius:14px;padding:1rem 1.2rem}
 .detail[hidden]{display:none}
 .detail h3{margin:.1rem 2rem .4rem 0;font-size:1.05rem}
@@ -118,11 +118,11 @@ footer{color:var(--muted);font-size:.82rem;margin-top:1.2rem}
 <div class="wrap">
 <header class="top">
 <h1>Práctica 06 — Diagrama de Secuencia de Pantallas · Instagram</h1>
-<p>Recorrido de 2 roles: <b>oyente</b> (persona que consume contenido) y <b>artista</b> (creador que publica y mide audiencia). Bocetos propios de baja fidelidad en escala de grises.</p>
+<p>Recorrido de 2 roles: <b>usuario normal</b> (persona que consume contenido) y <b>admin</b> (quien publica y mide audiencia). Bocetos propios de baja fidelidad en escala de grises.</p>
 <div class="note"><b>Nota académica:</b> ejercicio de clase. Los bocetos <b>no son las pantallas oficiales</b> de Instagram. No se usan logotipos, capturas ni fotografías oficiales. Solo funciones públicas y generales; las pantallas marcadas <span class="sup">supuesto</span> pueden variar según la versión de la app.</div>
 <div class="toolbar" role="group" aria-label="Controles del diagrama">
-<button class="btn" id="btnOyente" aria-pressed="false">◉ Rol oyente</button>
-<button class="btn" id="btnArtista" aria-pressed="false">✦ Rol artista</button>
+<button class="btn" id="btnUsuario" aria-pressed="false">◉ Usuario normal</button>
+<button class="btn" id="btnAdmin" aria-pressed="false">✦ Admin</button>
 <button class="btn" id="btnTema" aria-pressed="false">◐ Tema claro/oscuro</button>
 <button class="btn" id="btnReset">↺ Restablecer</button>
 </div>
@@ -132,13 +132,13 @@ footer{color:var(--muted);font-size:.82rem;margin-top:1.2rem}
 </header>
 
 <main>
-<!-- CARRIL OYENTE -->
-<section class="lane" data-lane="oyente" aria-labelledby="hOyente">
+<!-- CARRIL USUARIO -->
+<section class="lane" data-lane="usuario" aria-labelledby="hUsuario">
 <div class="lane-head">
 <span class="icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-6 8-6s8 2 8 6"/></svg></span>
-<div><h2 id="hOyente">Carril 1 — Rol oyente <small>Persona que consume: login → feed → buscar → detalle → reels → guardados</small></h2></div>
+<div><h2 id="hUsuario">Carril 1 — Usuario normal <small>Persona que consume: login → feed → buscar → detalle → reels → guardados</small></h2></div>
 </div>
-<div class="flow" role="list" aria-label="Recorrido del oyente">
+<div class="flow" role="list" aria-label="Recorrido del usuario normal">
 <div class="step" role="listitem">
 <button class="phone" data-screen="o_login"><span class="cap"><b>1 · Login</b><span>entrar</span></span><span class="screen"><span class="notch"></span><span class="w-logo"></span><span class="w-title" style="text-align:center">Bienvenido</span><span class="w-input"></span><span class="w-input"></span><span class="w-btn">Entrar</span><span class="w-link">¿Olvidaste tu contraseña?</span></span></button>
 </div>
@@ -156,7 +156,7 @@ footer{color:var(--muted);font-size:.82rem;margin-top:1.2rem}
 </div>
 <div class="arrow" aria-hidden="true"><span class="n">4</span><span class="shaft"></span><span class="lbl">Toca un reel</span></div>
 <div class="step" role="listitem">
-<button class="phone" data-screen="o_reels"><span class="cap"><b>5 · Reels</b><span>visor</span></span><span class="screen"><span class="notch"></span><span class="w-img tall"></span><span class="w-rail"><i></i><i></i><i></i></span><span class="w-sub">@creador · audio…</span><span class="w-progress"><span></span></span></span></button>
+<button class="phone" data-screen="o_reels"><span class="cap"><b>5 · Reels</b><span>visor</span></span><span class="screen"><span class="notch"></span><span class="w-img tall"></span><span class="w-rail"><i></i><i></i><i></i></span><span class="w-sub">@admin · audio…</span><span class="w-progress"><span></span></span></span></button>
 </div>
 <div class="arrow" aria-hidden="true"><span class="n">5</span><span class="shaft"></span><span class="lbl">Guarda</span></div>
 <div class="step" role="listitem">
@@ -165,17 +165,17 @@ footer{color:var(--muted);font-size:.82rem;margin-top:1.2rem}
 </div>
 </section>
 
-<div class="cross" id="crossNote"><b>⇄ 10 ·</b> Las vistas e interacciones del <b>oyente</b> en reels alimentan las <b>estadísticas del artista</b>. <span style="color:var(--muted)">(flecha entre carriles)</span></div>
+<div class="cross" id="crossNote"><b>⇄ 10 ·</b> Las vistas e interacciones del <b>usuario normal</b> en reels alimentan las <b>estadísticas del admin</b>. <span style="color:var(--muted)">(flecha entre carriles)</span></div>
 
-<!-- CARRIL ARTISTA -->
-<section class="lane" data-lane="artista" aria-labelledby="hArtista">
+<!-- CARRIL ADMIN -->
+<section class="lane" data-lane="admin" aria-labelledby="hAdmin">
 <div class="lane-head">
 <span class="icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.6 6.2 6.7.5-5.1 4.4 1.6 6.5L12 16l-5.8 3.6 1.6-6.5L2.7 8.7l6.7-.5z"/></svg></span>
-<div><h2 id="hArtista">Carril 2 — Rol artista <small>Creador: login → panel → stats → contenido → perfil</small></h2></div>
+<div><h2 id="hAdmin">Carril 2 — Admin <small>Administra: login → panel → stats → contenido → perfil</small></h2></div>
 </div>
-<div class="flow" role="list" aria-label="Recorrido del artista">
+<div class="flow" role="list" aria-label="Recorrido del admin">
 <div class="step" role="listitem">
-<button class="phone" data-screen="a_login"><span class="cap"><b>6 · Login</b><span>creador</span></span><span class="screen"><span class="notch"></span><span class="w-badge">CUENTA PROFESIONAL</span><span class="w-title" style="text-align:center">Hola, creador</span><span class="w-input"></span><span class="w-input"></span><span class="w-btn">Entrar</span><span class="w-link">Cambiar de cuenta</span></span></button>
+<button class="phone" data-screen="a_login"><span class="cap"><b>6 · Login</b><span>admin</span></span><span class="screen"><span class="notch"></span><span class="w-badge">CUENTA ADMIN</span><span class="w-title" style="text-align:center">Hola, admin</span><span class="w-input"></span><span class="w-input"></span><span class="w-btn">Entrar</span><span class="w-link">Cambiar de cuenta</span></span></button>
 </div>
 <div class="arrow" aria-hidden="true"><span class="n">6</span><span class="shaft"></span><span class="lbl">Inicia sesión</span></div>
 <div class="step" role="listitem">
@@ -191,7 +191,7 @@ footer{color:var(--muted);font-size:.82rem;margin-top:1.2rem}
 </div>
 <div class="arrow" aria-hidden="true"><span class="n">9</span><span class="shaft"></span><span class="lbl">Ve perfil</span></div>
 <div class="step" role="listitem">
-<button class="phone" data-screen="a_perfil"><span class="cap"><b>10 · Perfil</b><span>bio + top</span></span><span class="screen"><span class="notch"></span><span class="w-row"><span class="w-avatar big"></span><span class="w-line"></span></span><span class="w-sub">120 posts · 8,4 mil seg.</span><span class="w-sub">Creador · bio breve…</span><span class="w-row"><span class="w-pill">Seguir</span><span class="w-chip">Mensaje</span></span><span class="w-grid"><span class="w-cell"></span><span class="w-cell"></span><span class="w-cell"></span></span></span></button>
+<button class="phone" data-screen="a_perfil"><span class="cap"><b>10 · Perfil</b><span>bio + top</span></span><span class="screen"><span class="notch"></span><span class="w-row"><span class="w-avatar big"></span><span class="w-line"></span></span><span class="w-sub">120 posts · 8,4 mil seg.</span><span class="w-sub">Admin · bio breve…</span><span class="w-row"><span class="w-pill">Seguir</span><span class="w-chip">Mensaje</span></span><span class="w-grid"><span class="w-cell"></span><span class="w-cell"></span><span class="w-cell"></span></span></span></button>
 </div>
 </div>
 </section>
@@ -227,16 +227,16 @@ footer{color:var(--muted);font-size:.82rem;margin-top:1.2rem}
 </section>
 
 <ol class="sr-only">
-<li>Oyente: Login, con Inicia sesión va al Feed.</li>
-<li>Oyente: Feed, con Toca Buscar va a Buscar.</li>
-<li>Oyente: Buscar, con Abre resultado va al Detalle.</li>
-<li>Oyente: Detalle, con Toca un reel va a Reels.</li>
-<li>Oyente: Reels, con Guarda va a Guardados.</li>
-<li>Artista: Login, con Inicia sesión va al Panel.</li>
-<li>Artista: Panel, con Abre stats va a Stats.</li>
-<li>Artista: Stats, con Gestiona va a Contenido.</li>
-<li>Artista: Contenido, con Ve perfil va al Perfil.</li>
-<li>Entre carriles: vistas del oyente nutren stats del artista.</li>
+<li>Usuario normal: Login, con Inicia sesión va al Feed.</li>
+<li>Usuario normal: Feed, con Toca Buscar va a Buscar.</li>
+<li>Usuario normal: Buscar, con Abre resultado va al Detalle.</li>
+<li>Usuario normal: Detalle, con Toca un reel va a Reels.</li>
+<li>Usuario normal: Reels, con Guarda va a Guardados.</li>
+<li>Admin: Login, con Inicia sesión va al Panel.</li>
+<li>Admin: Panel, con Abre stats va a Stats.</li>
+<li>Admin: Stats, con Gestiona va a Contenido.</li>
+<li>Admin: Contenido, con Ve perfil va al Perfil.</li>
+<li>Entre carriles: vistas del usuario nutren stats del admin.</li>
 </ol>
 
 <footer>
@@ -248,17 +248,17 @@ footer{color:var(--muted);font-size:.82rem;margin-top:1.2rem}
 (function(){
 var root=document.documentElement, body=document.body;
 var DATA={
-o_login:{t:"1 · Inicio de sesión (oyente)",p:"Entrar a la cuenta para consumir contenido.",e:["Campo de usuario o correo","Campo de contraseña","Botón Entrar","Enlace de recuperación"],n:"1. Inicia sesión → va al Feed."},
+o_login:{t:"1 · Inicio de sesión (usuario)",p:"Entrar a la cuenta para consumir contenido.",e:["Campo de usuario o correo","Campo de contraseña","Botón Entrar","Enlace de recuperación"],n:"1. Inicia sesión → va al Feed."},
 o_feed:{t:"2 · Feed / Inicio",p:"Ver publicaciones recientes de las cuentas seguidas.",e:["Historias arriba","Tarjeta con avatar y nombre","Foto en gris","Fila: me gusta, comentar, compartir"],n:"2. Toca Buscar → va a Buscar."},
 o_buscar:{t:"3 · Buscar",p:"Encontrar personas, temas y lugares.",e:["Barra de búsqueda","Filtros: Top, Personas, Reels","Cuadrícula de miniaturas"],n:"3. Abre un resultado → va al Detalle."},
 o_detalle:{t:"4 · Detalle de post (supuesto)",p:"Ver una publicación con sus comentarios.",e:["Foto grande","Fila de autor con Seguir","Conteo de Me gusta","Comentarios y caja para comentar"],n:"4. Toca un reel → va al visor de Reels."},
-o_reels:{t:"5 · Visor de reels",p:"Ver videos cortos a pantalla completa.",e:["Video vertical en gris","Riel lateral de acciones","Autor y audio al pie","Barra de progreso"],n:"5. Guarda → va a Guardados. Sus vistas nutren las stats del artista (10)."},
-o_guard:{t:"6 · Guardados",p:"Colecciones privadas del oyente.",e:["Encabezado Guardados","Pestañas de colecciones","Cuadrícula de 2 columnas","Aviso de privacidad"],n:"Fin del recorrido oyente."},
-a_login:{t:"6 · Inicio de sesión (creador)",p:"Entrar con una cuenta profesional.",e:["Insignia de cuenta profesional","Campos de acceso","Botón Entrar","Cambiar de cuenta"],n:"6. Inicia sesión → va al Panel profesional."},
-a_panel:{t:"7 · Panel profesional",p:"Resumen para creadores con consejos.",e:["Saludo con avatar","Variación de alcance","3 mini tarjetas","Aviso con consejo"],n:"7. Abre stats → va a Estadísticas."},
+o_reels:{t:"5 · Visor de reels",p:"Ver videos cortos a pantalla completa.",e:["Video vertical en gris","Riel lateral de acciones","Autor y audio al pie","Barra de progreso"],n:"5. Guarda → va a Guardados. Sus vistas nutren las stats del admin (10)."},
+o_guard:{t:"6 · Guardados",p:"Colecciones privadas del usuario.",e:["Encabezado Guardados","Pestañas de colecciones","Cuadrícula de 2 columnas","Aviso de privacidad"],n:"Fin del recorrido del usuario."},
+a_login:{t:"6 · Inicio de sesión (admin)",p:"Entrar con una cuenta de administrador.",e:["Insignia de cuenta admin","Campos de acceso","Botón Entrar","Cambiar de cuenta"],n:"6. Inicia sesión → va al Panel."},
+a_panel:{t:"7 · Panel",p:"Resumen para el admin con consejos.",e:["Saludo con avatar","Variación de alcance","3 mini tarjetas","Aviso con consejo"],n:"7. Abre stats → va a Estadísticas."},
 a_stats:{t:"8 · Estadísticas de audiencia",p:"Medir alcance e interacciones.",e:["Cifra principal y rango","Barras por día","Seguidores vs no seguidores","Nota de vistas de reels"],n:"8. Gestiona → va a Contenido."},
-a_cont:{t:"9 · Contenido (supuesto)",p:"Gestionar publicaciones del creador.",e:["Botón Crear","Lista con estado: publicado, borrador","Filtros por fecha","Miniatura por fila"],n:"9. Ve perfil → va al Perfil."},
-a_perfil:{t:"10 · Perfil de creador",p:"Vista pública del artista.",e:["Avatar y contadores","Bio breve","Botones Seguir y Mensaje","Cuadrícula de posts"],n:"Fin del recorrido artista."},
+a_cont:{t:"9 · Contenido (supuesto)",p:"Gestionar publicaciones de la cuenta.",e:["Botón Crear","Lista con estado: publicado, borrador","Filtros por fecha","Miniatura por fila"],n:"9. Ve perfil → va al Perfil."},
+a_perfil:{t:"10 · Perfil del admin",p:"Vista pública de la cuenta.",e:["Avatar y contadores","Bio breve","Botones Seguir y Mensaje","Cuadrícula de posts"],n:"Fin del recorrido del admin."},
 e_off:{t:"A1 · Sin conexión",p:"Estado cuando no hay internet.",e:["Icono sin red","Mensaje de error","Botón Reintentar"],n:"Fuera del flujo: reintentar vuelve atrás."},
 e_empty:{t:"A2 · Búsqueda sin resultados",p:"Estado de búsqueda vacía.",e:["Barra con texto","Icono de vacío","Sugerencias de búsqueda"],n:"Fuera del flujo: ajusta la búsqueda."},
 e_na:{t:"A3 · Contenido no disponible",p:"Post eliminado o privado.",e:["Icono de contenido roto","Mensaje explicativo","Botón Volver"],n:"Fuera del flujo: vuelve atrás."}
@@ -278,16 +278,16 @@ document.addEventListener('keydown',function(ev){if(ev.key==='Escape'&&!detail.h
 document.querySelectorAll('.phone').forEach(function(b){
 b.addEventListener('click',function(){open(b.getAttribute('data-screen'));});
 });
-var bO=document.getElementById('btnOyente'),bA=document.getElementById('btnArtista'),
+var bO=document.getElementById('btnUsuario'),bA=document.getElementById('btnAdmin'),
 bT=document.getElementById('btnTema'),bR=document.getElementById('btnReset');
 function setRole(r){
 if(body.getAttribute('data-role')===r){body.setAttribute('data-role','');bO.setAttribute('aria-pressed','false');bA.setAttribute('aria-pressed','false');return;}
 body.setAttribute('data-role',r);
-bO.setAttribute('aria-pressed',r==='oyente'?'true':'false');
-bA.setAttribute('aria-pressed',r==='artista'?'true':'false');
+bO.setAttribute('aria-pressed',r==='usuario'?'true':'false');
+bA.setAttribute('aria-pressed',r==='admin'?'true':'false');
 }
-bO.addEventListener('click',function(){setRole('oyente');});
-bA.addEventListener('click',function(){setRole('artista');});
+bO.addEventListener('click',function(){setRole('usuario');});
+bA.addEventListener('click',function(){setRole('admin');});
 function setTheme(t){root.setAttribute('data-theme',t);bT.setAttribute('aria-pressed',t==='light'?'true':'false');try{localStorage.setItem('p06-theme',t);}catch(e){}}
 bT.addEventListener('click',function(){setTheme(root.getAttribute('data-theme')==='dark'?'light':'dark');});
 bR.addEventListener('click',function(){body.setAttribute('data-role','');bO.setAttribute('aria-pressed','false');bA.setAttribute('aria-pressed','false');detail.hidden=true;});

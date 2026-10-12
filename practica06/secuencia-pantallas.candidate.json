@@ -6,13 +6,13 @@
     "quality_profile": "showcase",
     "views": [
       {
-        "id": "recorrido-oyente",
+        "id": "recorrido-usuario",
         "label": "Recorrido usuario",
-        "focus": ["o_login", "o_inicio", "o_buscar", "o_detalle", "o_reproductor", "o_biblioteca"],
+        "focus": ["o_login", "o_inicio", "o_buscar", "o_detalle", "o_reels", "o_guardados"],
         "note": "Acceso, feed, buscar, detalle, reels y guardados."
       },
       {
-        "id": "recorrido-artista",
+        "id": "recorrido-admin",
         "label": "Recorrido admin",
         "focus": ["a_login", "a_panel", "a_stats", "a_musica", "a_perfil"],
         "note": "Acceso, panel, stats, contenido y perfil."
@@ -26,14 +26,14 @@
       {
         "id": "flujo-cruzado",
         "label": "Usuario nutre admin",
-        "focus": ["o_reproductor", "a_stats"],
+        "focus": ["o_reels", "a_stats"],
         "note": "Vistas nutren estadisticas."
       }
     ]
   },
   "lanes": [
     {
-      "id": "oyente",
+      "id": "usuario",
       "label": "Usuario normal"
     },
     {
@@ -42,7 +42,7 @@
       "variant": "exception"
     },
     {
-      "id": "artista",
+      "id": "admin",
       "label": "Admin"
     }
   ],
@@ -70,9 +70,9 @@
   ],
   "groups": [
     {
-      "id": "g_oyente",
+      "id": "g_usuario",
       "label": "Usuario",
-      "lane": "oyente",
+      "lane": "usuario",
       "fromCol": 0,
       "toCol": 5,
       "variant": "emphasis"
@@ -86,19 +86,19 @@
       "variant": "security"
     },
     {
-      "id": "g_artista",
+      "id": "g_admin",
       "label": "Admin",
-      "lane": "artista",
+      "lane": "admin",
       "fromCol": 0,
       "toCol": 4,
       "variant": "emphasis"
     }
   ],
-  "mainPath": ["o_login", "o_inicio", "o_buscar", "o_detalle", "o_reproductor", "o_biblioteca"],
+  "mainPath": ["o_login", "o_inicio", "o_buscar", "o_detalle", "o_reels", "o_guardados"],
   "nodes": [
     {
       "id": "o_login",
-      "lane": "oyente",
+      "lane": "usuario",
       "col": 0,
       "type": "security",
       "label": "Login",
@@ -107,7 +107,7 @@
     },
     {
       "id": "o_inicio",
-      "lane": "oyente",
+      "lane": "usuario",
       "col": 1,
       "type": "frontend",
       "label": "Feed",
@@ -116,7 +116,7 @@
     },
     {
       "id": "o_buscar",
-      "lane": "oyente",
+      "lane": "usuario",
       "col": 2,
       "type": "frontend",
       "label": "Buscar",
@@ -125,7 +125,7 @@
     },
     {
       "id": "o_detalle",
-      "lane": "oyente",
+      "lane": "usuario",
       "col": 3,
       "type": "frontend",
       "label": "Detalle",
@@ -133,8 +133,8 @@
       "width": 104
     },
     {
-      "id": "o_reproductor",
-      "lane": "oyente",
+      "id": "o_reels",
+      "lane": "usuario",
       "col": 4,
       "type": "frontend",
       "label": "Reels",
@@ -142,8 +142,8 @@
       "width": 104
     },
     {
-      "id": "o_biblioteca",
-      "lane": "oyente",
+      "id": "o_guardados",
+      "lane": "usuario",
       "col": 5,
       "type": "database",
       "label": "Guardados",
@@ -179,7 +179,7 @@
     },
     {
       "id": "a_login",
-      "lane": "artista",
+      "lane": "admin",
       "col": 0,
       "type": "security",
       "label": "Login",
@@ -188,7 +188,7 @@
     },
     {
       "id": "a_panel",
-      "lane": "artista",
+      "lane": "admin",
       "col": 1,
       "type": "frontend",
       "label": "Panel",
@@ -197,7 +197,7 @@
     },
     {
       "id": "a_stats",
-      "lane": "artista",
+      "lane": "admin",
       "col": 2,
       "type": "database",
       "label": "Stats",
@@ -206,7 +206,7 @@
     },
     {
       "id": "a_musica",
-      "lane": "artista",
+      "lane": "admin",
       "col": 3,
       "type": "frontend",
       "label": "Contenido",
@@ -215,7 +215,7 @@
     },
     {
       "id": "a_perfil",
-      "lane": "artista",
+      "lane": "admin",
       "col": 4,
       "type": "frontend",
       "label": "Perfil",
@@ -248,14 +248,14 @@
     {
       "id": "o4",
       "from": "o_detalle",
-      "to": "o_reproductor",
+      "to": "o_reels",
       "label": "4. Ver reel",
       "variant": "emphasis"
     },
     {
       "id": "o5",
-      "from": "o_reproductor",
-      "to": "o_biblioteca",
+      "from": "o_reels",
+      "to": "o_guardados",
       "label": "5. Guardar",
       "variant": "default"
     },
@@ -289,7 +289,7 @@
     },
     {
       "id": "x10",
-      "from": "o_reproductor",
+      "from": "o_reels",
       "to": "a_stats",
       "label": "10. Nutre stats",
       "variant": "emphasis"

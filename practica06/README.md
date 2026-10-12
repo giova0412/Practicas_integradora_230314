@@ -15,7 +15,7 @@
 
 ## 📋 Descripción
 
-Esta práctica modela el **recorrido de pantallas de la app móvil de Instagram** para **2 roles** —**oyente** (persona que consume contenido) y **artista** (creador que publica y mide audiencia)— con **bocetos propios de baja fidelidad** (wireframes en escala de grises dentro de marcos de teléfono).
+Esta práctica modela el **recorrido de pantallas de la app móvil de Instagram** para **2 roles** —**usuario normal** (persona que consume contenido) y **admin** (quien publica y mide audiencia)— con **bocetos propios de baja fidelidad** (wireframes en escala de grises dentro de marcos de teléfono).
 
 > **Nota académica:** ejercicio de clase. Los bocetos **no son las pantallas oficiales** de Instagram. No se usan logotipos, capturas ni fotografías oficiales. Solo funciones públicas y generales; las pantallas marcadas como `supuesto` pueden variar según la versión de la app.
 
@@ -25,7 +25,7 @@ Esta práctica modela el **recorrido de pantallas de la app móvil de Instagram*
 
 ```text
 Usa Archify para generar el Diagrama de Secuencia de Pantallas (Sketches) de la
-aplicación móvil de Instagram, mostrando el recorrido de 2 roles: oyente y artista.
+aplicación móvil de Instagram, mostrando el recorrido de 2 roles: usuario normal y admin.
 
 Alcance y fidelidad:
 - Representa pantallas típicas y reconocibles de cada rol con bocetos propios de
@@ -40,16 +40,16 @@ Estructura del diagrama:
 - Dos carriles horizontales (uno por rol), con el nombre y el ícono de cada rol.
 - Cada carril contiene los bocetos de las pantallas dentro de marcos de teléfono,
   en el orden del recorrido.
-- Rol oyente: inicio de sesión → inicio → buscar → detalle → reproductor/visor →
+- Rol usuario normal: inicio de sesión → inicio → buscar → detalle → visor de reels →
   guardados.
-- Rol artista: inicio de sesión → panel principal → estadísticas de audiencia →
-  contenido y publicaciones → perfil de artista.
+- Rol admin: inicio de sesión → panel principal → estadísticas de audiencia →
+  contenido y publicaciones → perfil.
 - Flechas numeradas entre pantallas, con etiqueta breve de la acción que dispara
   el cambio (por ejemplo "Toca un reel").
 - Pantallas de estados alternos fuera del flujo principal: sin conexión, búsqueda
   sin resultados y contenido no disponible.
-- Una flecha entre carriles que muestre cómo las vistas del oyente alimentan las
-  estadísticas del artista.
+- Una flecha entre carriles que muestre cómo las vistas del usuario normal alimentan
+  las estadísticas del admin.
 
 Interacción:
 - Al hacer clic en una pantalla, se abre un panel con su nombre, propósito,
@@ -77,13 +77,13 @@ node bin/archify.mjs deliver workflow practica06/secuencia-pantallas.candidate.j
 node bin/archify.mjs visual-check practica06/secuencia-pantallas.archify.html --json
 ```
 
-Resultado: validación **showcase 9/9, 0 errores y 0 advertencias** (spec SHA-256 `1778e906…`, artefacto `9f35c4c7…`, 822 618 bytes).
+Resultado: validación **showcase 9/9, 0 errores y 0 advertencias** (spec SHA-256 `6c33975c…`, artefacto `7f9db414…`, 822 504 bytes).
 
 ---
 
 ## 🧭 Recorrido modelado
 
-### Rol oyente (consume contenido)
+### Rol usuario normal (consume contenido)
 
 | # | Pantalla | Acción que dispara el cambio |
 |---|---|---|
@@ -94,19 +94,19 @@ Resultado: validación **showcase 9/9, 0 errores y 0 advertencias** (spec SHA-25
 | 5 | Visor de reels | 5. Guarda → Guardados |
 | 6 | Guardados | Fin del recorrido |
 
-### Rol artista (creador)
+### Rol admin (administra la cuenta)
 
 | # | Pantalla | Acción que dispara el cambio |
 |---|---|---|
-| 6 | Inicio de sesión (creador) | 6. Inicia sesión → Panel |
-| 7 | Panel profesional | 7. Abre stats → Estadísticas |
+| 6 | Inicio de sesión (admin) | 6. Inicia sesión → Panel |
+| 7 | Panel | 7. Abre stats → Estadísticas |
 | 8 | Estadísticas de audiencia | 8. Gestiona → Contenido |
 | 9 | Contenido *(supuesto)* | 9. Ve perfil → Perfil |
-| 10 | Perfil de creador | Fin del recorrido |
+| 10 | Perfil del admin | Fin del recorrido |
 
 ### Entre carriles
 
-- **10. Las vistas e interacciones del oyente en reels alimentan las estadísticas del artista.**
+- **10. Las vistas e interacciones del usuario normal en reels alimentan las estadísticas del admin.**
 
 ### Estados alternos (fuera del flujo principal)
 
