@@ -9,6 +9,7 @@
 
 - 🏗️ **Práctica 02 — Arquitectura Mobile Platform:** [practica02/](https://github.com/giova0412/Practicas_integradora_230314/tree/master/practica02)
 - 📊 **Práctica 03 — Instagram Business Model Canvas:** [practica03/](https://github.com/giova0412/Practicas_integradora_230314/tree/master/practica03)
+- 📱 **Práctica 06 — Secuencia de Pantallas Instagram (Oyente y Artista):** [practica06/](https://github.com/giova0412/Practicas_integradora_230314/tree/master/practica06)
 
 ---
 
@@ -25,6 +26,7 @@ Este repositorio documenta las prácticas de la materia **Integradora** correspo
 | 01 | Práctica 01 | Actividades correspondientes a la primera práctica de la materia | Concluida |
 | 02 | Boceto de Arquitectura de Proyecto Integrador con Archify | Instalación y configuración de Codex-CLI y Archify, generación de un modelo arquitectónico interactivo y publicación mediante GitHub Pages | [📂 practica02/](https://github.com/giova0412/Practicas_integradora_230314/tree/master/practica02) |
 | 03 | Business Model Canvas de Instagram con Archify | Modelado e implementación interactiva del Business Model Canvas de Instagram con análisis detallado por bloque | [📂 practica03/](https://github.com/giova0412/Practicas_integradora_230314/tree/master/practica03) |
+| 06 | Secuencia de Pantallas de Instagram con Archify | Bocetos de baja fidelidad del recorrido de 2 roles (oyente y artista), diagrama formal Archify e implementación interactiva con marcos de teléfono | [📂 practica06/](https://github.com/giova0412/Practicas_integradora_230314/tree/master/practica06) |
 
 ---
 

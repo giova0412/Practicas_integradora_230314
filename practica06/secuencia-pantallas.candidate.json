@@ -1,0 +1,339 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Secuencia de Pantallas — Instagram (Admin y Usuario)",
+    "quality_profile": "showcase",
+    "views": [
+      {
+        "id": "recorrido-oyente",
+        "label": "Recorrido usuario",
+        "focus": ["o_login", "o_inicio", "o_buscar", "o_detalle", "o_reproductor", "o_biblioteca"],
+        "note": "Acceso, feed, buscar, detalle, reels y guardados."
+      },
+      {
+        "id": "recorrido-artista",
+        "label": "Recorrido admin",
+        "focus": ["a_login", "a_panel", "a_stats", "a_musica", "a_perfil"],
+        "note": "Acceso, panel, stats, contenido y perfil."
+      },
+      {
+        "id": "estados-alternos",
+        "label": "Estados alternos",
+        "focus": ["e_offline", "e_empty", "e_unavail"],
+        "note": "Tres estados fuera del flujo."
+      },
+      {
+        "id": "flujo-cruzado",
+        "label": "Usuario nutre admin",
+        "focus": ["o_reproductor", "a_stats"],
+        "note": "Vistas nutren estadisticas."
+      }
+    ]
+  },
+  "lanes": [
+    {
+      "id": "oyente",
+      "label": "Usuario normal"
+    },
+    {
+      "id": "alternos",
+      "label": "Estados alternos",
+      "variant": "exception"
+    },
+    {
+      "id": "artista",
+      "label": "Admin"
+    }
+  ],
+  "phases": [
+    {
+      "id": "acceso",
+      "label": "Acceso",
+      "fromCol": 0,
+      "toCol": 0
+    },
+    {
+      "id": "explorar",
+      "label": "Explorar",
+      "fromCol": 1,
+      "toCol": 3,
+      "variant": "emphasis"
+    },
+    {
+      "id": "usar",
+      "label": "Usar",
+      "fromCol": 4,
+      "toCol": 5,
+      "variant": "dashed"
+    }
+  ],
+  "groups": [
+    {
+      "id": "g_oyente",
+      "label": "Usuario",
+      "lane": "oyente",
+      "fromCol": 0,
+      "toCol": 5,
+      "variant": "emphasis"
+    },
+    {
+      "id": "g_alternos",
+      "label": "Alternos",
+      "lane": "alternos",
+      "fromCol": 1,
+      "toCol": 3,
+      "variant": "security"
+    },
+    {
+      "id": "g_artista",
+      "label": "Admin",
+      "lane": "artista",
+      "fromCol": 0,
+      "toCol": 4,
+      "variant": "emphasis"
+    }
+  ],
+  "mainPath": ["o_login", "o_inicio", "o_buscar", "o_detalle", "o_reproductor", "o_biblioteca"],
+  "nodes": [
+    {
+      "id": "o_login",
+      "lane": "oyente",
+      "col": 0,
+      "type": "security",
+      "label": "Login",
+      "sublabel": "entrar",
+      "width": 104
+    },
+    {
+      "id": "o_inicio",
+      "lane": "oyente",
+      "col": 1,
+      "type": "frontend",
+      "label": "Feed",
+      "sublabel": "recientes",
+      "width": 104
+    },
+    {
+      "id": "o_buscar",
+      "lane": "oyente",
+      "col": 2,
+      "type": "frontend",
+      "label": "Buscar",
+      "sublabel": "resultados",
+      "width": 104
+    },
+    {
+      "id": "o_detalle",
+      "lane": "oyente",
+      "col": 3,
+      "type": "frontend",
+      "label": "Detalle",
+      "sublabel": "post",
+      "width": 104
+    },
+    {
+      "id": "o_reproductor",
+      "lane": "oyente",
+      "col": 4,
+      "type": "frontend",
+      "label": "Reels",
+      "sublabel": "visor",
+      "width": 104
+    },
+    {
+      "id": "o_biblioteca",
+      "lane": "oyente",
+      "col": 5,
+      "type": "database",
+      "label": "Guardados",
+      "sublabel": "coleccion",
+      "width": 104
+    },
+    {
+      "id": "e_offline",
+      "lane": "alternos",
+      "col": 1,
+      "type": "external",
+      "label": "Sin red",
+      "sublabel": "reintentar",
+      "width": 104
+    },
+    {
+      "id": "e_empty",
+      "lane": "alternos",
+      "col": 2,
+      "type": "frontend",
+      "label": "Vacio",
+      "sublabel": "sin hallazgos",
+      "width": 104
+    },
+    {
+      "id": "e_unavail",
+      "lane": "alternos",
+      "col": 3,
+      "type": "external",
+      "label": "No disponible",
+      "sublabel": "eliminado",
+      "width": 104
+    },
+    {
+      "id": "a_login",
+      "lane": "artista",
+      "col": 0,
+      "type": "security",
+      "label": "Login",
+      "sublabel": "admin",
+      "width": 104
+    },
+    {
+      "id": "a_panel",
+      "lane": "artista",
+      "col": 1,
+      "type": "frontend",
+      "label": "Panel",
+      "sublabel": "profesional",
+      "width": 104
+    },
+    {
+      "id": "a_stats",
+      "lane": "artista",
+      "col": 2,
+      "type": "database",
+      "label": "Stats",
+      "sublabel": "alcance",
+      "width": 104
+    },
+    {
+      "id": "a_musica",
+      "lane": "artista",
+      "col": 3,
+      "type": "frontend",
+      "label": "Contenido",
+      "sublabel": "posts",
+      "width": 104
+    },
+    {
+      "id": "a_perfil",
+      "lane": "artista",
+      "col": 4,
+      "type": "frontend",
+      "label": "Perfil",
+      "sublabel": "bio + top",
+      "width": 104
+    }
+  ],
+  "edges": [
+    {
+      "id": "o1",
+      "from": "o_login",
+      "to": "o_inicio",
+      "label": "1. Entrar",
+      "variant": "emphasis"
+    },
+    {
+      "id": "o2",
+      "from": "o_inicio",
+      "to": "o_buscar",
+      "label": "2. Buscar",
+      "variant": "default"
+    },
+    {
+      "id": "o3",
+      "from": "o_buscar",
+      "to": "o_detalle",
+      "label": "3. Abrir",
+      "variant": "default"
+    },
+    {
+      "id": "o4",
+      "from": "o_detalle",
+      "to": "o_reproductor",
+      "label": "4. Ver reel",
+      "variant": "emphasis"
+    },
+    {
+      "id": "o5",
+      "from": "o_reproductor",
+      "to": "o_biblioteca",
+      "label": "5. Guardar",
+      "variant": "default"
+    },
+    {
+      "id": "a6",
+      "from": "a_login",
+      "to": "a_panel",
+      "label": "6. Entrar",
+      "variant": "emphasis"
+    },
+    {
+      "id": "a7",
+      "from": "a_panel",
+      "to": "a_stats",
+      "label": "7. Stats",
+      "variant": "default"
+    },
+    {
+      "id": "a8",
+      "from": "a_stats",
+      "to": "a_musica",
+      "label": "8. Contenido",
+      "variant": "default"
+    },
+    {
+      "id": "a9",
+      "from": "a_musica",
+      "to": "a_perfil",
+      "label": "9. Perfil",
+      "variant": "default"
+    },
+    {
+      "id": "x10",
+      "from": "o_reproductor",
+      "to": "a_stats",
+      "label": "10. Nutre stats",
+      "variant": "emphasis"
+    },
+    {
+      "id": "b_off",
+      "from": "o_inicio",
+      "to": "e_offline",
+      "label": "sin red",
+      "variant": "dashed",
+      "role": "error"
+    },
+    {
+      "id": "b_empty",
+      "from": "o_buscar",
+      "to": "e_empty",
+      "label": "vacia",
+      "variant": "dashed",
+      "role": "branch"
+    },
+    {
+      "id": "b_unav",
+      "from": "o_detalle",
+      "to": "e_unavail",
+      "label": "eliminado",
+      "variant": "dashed",
+      "role": "error"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Ejercicio academico",
+      "items": ["App: Instagram, bocetos propios en grises", "Sin logos, capturas ni fotos oficiales", "Funciones generales unicamente"]
+    },
+    {
+      "dot": "emerald",
+      "title": "Dos roles",
+      "items": ["Usuario: login, feed, buscar, detalle, reels, guardados", "Admin: login, panel, stats, contenido, perfil", "Vistas del usuario nutren stats del admin"]
+    },
+    {
+      "dot": "amber",
+      "title": "Alternos y supuestos",
+      "items": ["Sin red, vacio y no disponible", "Fuera del flujo principal", "Supuesto si la funcion no es segura"]
+    }
+  ]
+}

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Práctica 06 — Secuencia de Pantallas Instagram (Oyente y Artista)</title>
+<style>
+:root{
+  --bg:#0f172a; --panel:#1e293b; --panel2:#0b1220; --line:#334155;
+  --text:#f1f5f9; --muted:#94a3b8; --accent:#38bdf8; --accent2:#a78bfa;
+  --chip:#0ea5e9; --ok:#34d399;
+  --sk1:#e5e7eb; --sk2:#cbd5e1; --sk3:#94a3b8; --sk4:#64748b; --sk5:#334155;
+  --phone:#020617; --screen:#f8fafc;
+  --focus:#fbbf24;
+}
+html[data-theme="light"]{
+  --bg:#f1f5f9; --panel:#ffffff; --panel2:#e2e8f0; --line:#cbd5e1;
+  --text:#0f172a; --muted:#475569; --accent:#0284c7; --accent2:#7c3aed;
+  --phone:#0f172a; --screen:#ffffff;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.45}
+.wrap{max-width:1200px;margin:0 auto;padding:1rem 1rem 3rem}
+header.top{border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:1rem 1.2rem;margin-bottom:1rem}
+header.top h1{font-size:1.25rem;margin:.1rem 0 .4rem}
+header.top p{margin:.3rem 0;color:var(--muted);font-size:.9rem}
+.note{border-left:4px solid var(--accent);padding:.5rem .8rem;background:var(--panel2);border-radius:0 10px 10px 0;font-size:.85rem;margin:.6rem 0}
+.toolbar{display:flex;flex-wrap:wrap;gap:.5rem;margin:.8rem 0}
+button{font:inherit}
+.btn{cursor:pointer;user-select:none;-webkit-user-select:none;border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:999px;padding:.5rem .95rem;font-weight:600;font-size:.85rem}
+.btn:hover{border-color:var(--accent)}
+.btn[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#06202e}
+html[data-theme="light"] .btn[aria-pressed="true"]{color:#fff}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:8px}
+.lane{border:1px solid var(--line);background:var(--panel);border-radius:14px;margin:1rem 0;transition:opacity .2s}
+.lane-head{display:flex;align-items:center;gap:.7rem;padding:.8rem 1rem;border-bottom:1px solid var(--line)}
+.lane-head .icon{width:38px;height:38px;flex:none;border-radius:12px;background:var(--panel2);border:1px solid var(--line);display:grid;place-items:center;color:var(--accent)}
+.lane-head h2{font-size:1rem;margin:0}
+.lane-head small{display:block;color:var(--muted);font-weight:400}
+.lane.alt{border-style:dashed}
+.flow{display:flex;align-items:stretch;gap:.2rem;overflow-x:auto;padding:1rem;-webkit-overflow-scrolling:touch}
+.step{display:flex;align-items:stretch;flex:none}
+.phone{cursor:pointer;user-select:none;-webkit-user-select:none;background:var(--phone);color:#111;border:2px solid var(--line);border-radius:22px;width:172px;flex:none;padding:.55rem .55rem .7rem;display:flex;flex-direction:column;gap:.4rem}
+.phone:hover{border-color:var(--accent)}
+.phone .cap{color:var(--text);text-align:center}
+.phone .cap b{display:block;font-size:.78rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.phone .cap span{font-size:.68rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
+.screen{background:var(--screen);border-radius:12px;height:288px;overflow:hidden;padding:8px;display:flex;flex-direction:column;gap:6px;position:relative}
+.screen *{cursor:pointer}
+.screen>*{flex:none;min-height:0}
+.screen>.w-img.tall{flex:1 1 0;min-height:64px}
+.notch{width:64px;height:6px;border-radius:99px;background:#0f172a22;margin:0 auto}
+html[data-theme="dark"] .notch{background:#ffffff2e}
+.w-bar{background:var(--sk2);border-radius:6px;height:14px}
+.w-input{border:2px solid var(--sk3);border-radius:8px;height:26px;background:#fff}
+.w-btn{background:var(--sk5);color:#fff;border-radius:8px;height:26px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700}
+.w-link{font-size:9px;text-align:center;color:var(--sk4)}
+.w-row{display:flex;gap:6px;align-items:center}
+.w-avatar{width:22px;height:22px;border-radius:50%;background:var(--sk3);flex:none}
+.w-avatar.big{width:40px;height:40px}
+.w-line{height:7px;border-radius:99px;background:var(--sk2);min-width:0}
+.w-row>.w-line{flex:1}
+.w-row>.w-line.short{flex:.5}
+.w-img{background:var(--sk2);border-radius:8px;min-height:0}
+.w-img.tall{flex:1}
+.w-img.mid{height:86px}
+.w-img.sq{aspect-ratio:1/1;height:auto}
+.w-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px}
+.w-grid.two{grid-template-columns:1fr 1fr}
+.w-cell{background:var(--sk2);border-radius:5px;aspect-ratio:1/1;min-width:0}
+.w-pill{font-size:8px;font-weight:700;background:var(--sk3);color:#111;border-radius:99px;padding:2px 7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.w-chip{font-size:8px;background:#fff;border:1px solid var(--sk3);border-radius:99px;padding:2px 7px;white-space:nowrap;overflow:hidden;max-width:100%;text-overflow:ellipsis}
+.w-heart{width:14px;height:14px;flex:none;border-radius:50%;border:2px solid var(--sk4)}
+.w-bar-chart{display:flex;align-items:flex-end;gap:4px;height:56px}
+.w-bar-chart span{flex:1;background:var(--sk3);border-radius:3px 3px 0 0;min-width:0}
+.w-badge{font-size:8px;font-weight:800;background:var(--sk5);color:#fff;border-radius:6px;padding:2px 6px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.w-alert{font-size:8px;background:var(--sk1);border:1px dashed var(--sk4);border-radius:6px;padding:4px 6px;color:#333;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.w-title{font-size:10px;font-weight:800;color:#111;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.w-sub{font-size:8px;color:#475569;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.w-logo{width:44px;height:44px;border-radius:50%;background:var(--sk3);margin:6px auto}
+.w-icon{width:34px;height:34px;border-radius:10px;background:var(--sk3);margin:4px auto;flex:none}
+.w-progress{height:5px;border-radius:99px;background:var(--sk2)}
+.w-progress span{display:block;height:100%;width:60%;background:var(--sk5);border-radius:99px}
+.w-rail{position:absolute;right:10px;top:60px;display:flex;flex-direction:column;gap:8px;align-items:center}
+.w-rail i{width:16px;height:16px;border-radius:50%;background:var(--sk3);display:block}
+.sup{font-size:8px;font-weight:800;color:#7c2d12;background:#fed7aa;border-radius:5px;padding:1px 5px;margin-left:4px;white-space:nowrap}
+.arrow{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.25rem;padding:0 .45rem;flex:none;min-width:86px;user-select:none;-webkit-user-select:none}
+.arrow .n{width:26px;height:26px;border-radius:50%;background:var(--accent);color:#06202e;font-weight:800;font-size:.8rem;display:grid;place-items:center}
+.arrow .lbl{font-size:.68rem;color:var(--muted);text-align:center;max-width:90px}
+.arrow .shaft{width:44px;height:2px;background:var(--accent);position:relative;margin:.2rem 0}
+.arrow .shaft::after{content:"";position:absolute;top:50%;right:-2px;transform:translateY(-50%);border:7px solid transparent;border-left:10px solid var(--accent)}
+.flow-h{flex-direction:row}
+@media (max-width:640px){.arrow{min-width:70px}.arrow .lbl{font-size:.62rem}}
+.cross{margin:0 0 1rem;border:1px solid var(--accent);border-radius:12px;padding:.7rem 1rem;background:var(--panel2);font-size:.85rem}
+.cross b{color:var(--accent)}
+body[data-role="oyente"] .lane[data-lane="artista"]{opacity:.32}
+body[data-role="artista"] .lane[data-lane="oyente"]{opacity:.32}
+body[data-role="oyente"] .lane[data-lane="artista"] .phone,
+body[data-role="artista"] .lane[data-lane="oyente"] .phone{filter:grayscale(1)}
+.detail{position:sticky;bottom:0;margin-top:1rem;border:1px solid var(--accent);background:var(--panel);border-radius:14px;padding:1rem 1.2rem}
+.detail[hidden]{display:none}
+.detail h3{margin:.1rem 2rem .4rem 0;font-size:1.05rem}
+.detail dl{margin:.4rem 0;font-size:.88rem}
+.detail dt{font-weight:700;color:var(--accent);margin-top:.45rem}
+.detail dd{margin:.1rem 0 .3rem;color:var(--text)}
+.detail ul{margin:.2rem 0 .4rem;padding-left:1.1rem}
+.detail li{margin:.12rem 0}
+.close-x{position:absolute;top:.6rem;right:.6rem}
+footer{color:var(--muted);font-size:.82rem;margin-top:1.2rem}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.legend{display:flex;flex-wrap:wrap;gap:.4rem;margin:.6rem 0}
+.legend span{font-size:.72rem;border:1px solid var(--line);border-radius:99px;padding:.15rem .6rem;background:var(--panel2)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body data-role="">
+<div class="wrap">
+<header class="top">
+<h1>Práctica 06 — Diagrama de Secuencia de Pantallas · Instagram</h1>
+<p>Recorrido de 2 roles: <b>oyente</b> (persona que consume contenido) y <b>artista</b> (creador que publica y mide audiencia). Bocetos propios de baja fidelidad en escala de grises.</p>
+<div class="note"><b>Nota académica:</b> ejercicio de clase. Los bocetos <b>no son las pantallas oficiales</b> de Instagram. No se usan logotipos, capturas ni fotografías oficiales. Solo funciones públicas y generales; las pantallas marcadas <span class="sup">supuesto</span> pueden variar según la versión de la app.</div>
+<div class="toolbar" role="group" aria-label="Controles del diagrama">
+<button class="btn" id="btnOyente" aria-pressed="false">◉ Rol oyente</button>
+<button class="btn" id="btnArtista" aria-pressed="false">✦ Rol artista</button>
+<button class="btn" id="btnTema" aria-pressed="false">◐ Tema claro/oscuro</button>
+<button class="btn" id="btnReset">↺ Restablecer</button>
+</div>
+<div class="legend" aria-label="Leyenda">
+<span>▢ Marco = teléfono</span><span>ⓝ Flecha numerada = acción</span><span class="sup">supuesto</span><span>⇄ Flecha entre carriles = vistas nutren stats</span>
+</div>
+</header>
+
+<main>
+<!-- CARRIL OYENTE -->
+<section class="lane" data-lane="oyente" aria-labelledby="hOyente">
+<div class="lane-head">
+<span class="icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-6 8-6s8 2 8 6"/></svg></span>
+<div><h2 id="hOyente">Carril 1 — Rol oyente <small>Persona que consume: login → feed → buscar → detalle → reels → guardados</small></h2></div>
+</div>
+<div class="flow" role="list" aria-label="Recorrido del oyente">
+<div class="step" role="listitem">
+<button class="phone" data-screen="o_login"><span class="cap"><b>1 · Login</b><span>entrar</span></span><span class="screen"><span class="notch"></span><span class="w-logo"></span><span class="w-title" style="text-align:center">Bienvenido</span><span class="w-input"></span><span class="w-input"></span><span class="w-btn">Entrar</span><span class="w-link">¿Olvidaste tu contraseña?</span></span></button>
+</div>
+<div class="arrow" aria-hidden="true"><span class="n">1</span><span class="shaft"></span><span class="lbl">Inicia sesión</span></div>
+<div class="step" role="listitem">
+<button class="phone" data-screen="o_feed"><span class="cap"><b>2 · Feed</b><span>recientes</span></span><span class="screen"><span class="notch"></span><span class="w-row"><span class="w-avatar"></span><span class="w-line"></span><span class="w-pill">···</span></span><span class="w-img mid"></span><span class="w-row"><span class="w-heart"></span><span class="w-heart"></span><span class="w-heart"></span><span class="w-line short"></span></span><span class="w-line"></span><span class="w-line short"></span><span class="w-img mid"></span></span></button>
+</div>
+<div class="arrow" aria-hidden="true"><span class="n">2</span><span class="shaft"></span><span class="lbl">Toca Buscar</span></div>
+<div class="step" role="listitem">
+<button class="phone" data-screen="o_buscar"><span class="cap"><b>3 · Buscar</b><span>resultados</span></span><span class="screen"><span class="notch"></span><span class="w-bar"></span><span class="w-row"><span class="w-chip">Top</span><span class="w-chip">Personas</span><span class="w-chip">Reels</span></span><span class="w-grid"><span class="w-cell"></span><span class="w-cell"></span><span class="w-cell"></span><span class="w-cell"></span><span class="w-cell"></span><span class="w-cell"></span><span class="w-cell"></span><span class="w-cell"></span><span class="w-cell"></span></span></span></button>
+</div>
+<div class="arrow" aria-hidden="true"><span class="n">3</span><span class="shaft"></span><span class="lbl">Abre resultado</span></div>
+<div class="step" role="listitem">
+<button class="phone" data-screen="o_detalle"><span class="cap"><b>4 · Detalle<span class="sup">supuesto</span></b><span>post</span></span><span class="screen"><span class="notch"></span><span class="w-img mid"></span><span class="w-row"><span class="w-avatar"></span><span class="w-line"></span><span class="w-pill">Seguir</span></span><span class="w-sub">1 240 Me gusta</span><span class="w-line"></span><span class="w-line"></span><span class="w-line short"></span><span class="w-input"></span></span></button>
+</div>
+<div class="arrow" aria-hidden="true"><span class="n">4</span><span class="shaft"></span><span class="lbl">Toca un reel</span></div>
+<div class="step" role="listitem">
+<button class="phone" data-screen="o_reels"><span class="cap"><b>5 · Reels</b><span>visor</span></span><span class="screen"><span class="notch"></span><span class="w-img tall"></span><span class="w-rail"><i></i><i></i><i></i></span><span class="w-sub">@creador · audio…</span><span class="w-progress"><span></span></span></span></button>
+</div>
+<div class="arrow" aria-hidden="true"><span class="n">5</span><span class="shaft"></span><span class="lbl">Guarda</span></div>
+<div class="step" role="listitem">
+<button class="phone" data-screen="o_guard"><span class="cap"><b>6 · Guardados</b><span>colección</span></span><span class="screen"><span class="notch"></span><span class="w-title">Guardados</span><span class="w-row"><span class="w-pill">Todo</span><span class="w-chip">Viajes</span><span class="w-chip">Recetas</span></span><span class="w-grid two"><span class="w-cell"></span><span class="w-cell"></span><span class="w-cell"></span><span class="w-cell"></span></span><span class="w-sub">Solo tú ves esto</span></span></button>
+</div>
+</div>
+</section>
+
+<div class="cross" id="crossNote"><b>⇄ 10 ·</b> Las vistas e interacciones del <b>oyente</b> en reels alimentan las <b>estadísticas del artista</b>. <span style="color:var(--muted)">(flecha entre carriles)</span></div>
+
+<!-- CARRIL ARTISTA -->
+<section class="lane" data-lane="artista" aria-labelledby="hArtista">
+<div class="lane-head">
+<span class="icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.6 6.2 6.7.5-5.1 4.4 1.6 6.5L12 16l-5.8 3.6 1.6-6.5L2.7 8.7l6.7-.5z"/></svg></span>
+<div><h2 id="hArtista">Carril 2 — Rol artista <small>Creador: login → panel → stats → contenido → perfil</small></h2></div>
+</div>
+<div class="flow" role="list" aria-label="Recorrido del artista">
+<div class="step" role="listitem">
+<button class="phone" data-screen="a_login"><span class="cap"><b>6 · Login</b><span>creador</span></span><span class="screen"><span class="notch"></span><span class="w-badge">CUENTA PROFESIONAL</span><span class="w-title" style="text-align:center">Hola, creador</span><span class="w-input"></span><span class="w-input"></span><span class="w-btn">Entrar</span><span class="w-link">Cambiar de cuenta</span></span></button>
+</div>
+<div class="arrow" aria-hidden="true"><span class="n">6</span><span class="shaft"></span><span class="lbl">Inicia sesión</span></div>
+<div class="step" role="listitem">
+<button class="phone" data-screen="a_panel"><span class="cap"><b>7 · Panel</b><span>profesional</span></span><span class="screen"><span class="notch"></span><span class="w-row"><span class="w-avatar"></span><span class="w-title">Tu resumen</span></span><span class="w-row"><span class="w-pill">+12%</span><span class="w-line"></span></span><span class="w-grid"><span class="w-cell"></span><span class="w-cell"></span><span class="w-cell"></span></span><span class="w-alert">Consejo: publica un reel hoy</span><span class="w-line"></span><span class="w-line short"></span></span></button>
+</div>
+<div class="arrow" aria-hidden="true"><span class="n">7</span><span class="shaft"></span><span class="lbl">Abre stats</span></div>
+<div class="step" role="listitem">
+<button class="phone" data-screen="a_stats"><span class="cap"><b>8 · Stats</b><span>alcance</span></span><span class="screen"><span class="notch"></span><span class="w-sub">Últimos 30 días</span><span class="w-title">48,2 mil alcance</span><span class="w-bar-chart"><span style="height:35%"></span><span style="height:60%"></span><span style="height:45%"></span><span style="height:80%"></span><span style="height:100%"></span><span style="height:70%"></span><span style="height:55%"></span></span><span class="w-row"><span class="w-chip">Seguidores</span><span class="w-chip">No seguid.</span></span><span class="w-sub">↑ vistas de reels</span></span></button>
+</div>
+<div class="arrow" aria-hidden="true"><span class="n">8</span><span class="shaft"></span><span class="lbl">Gestiona</span></div>
+<div class="step" role="listitem">
+<button class="phone" data-screen="a_cont"><span class="cap"><b>9 · Contenido<span class="sup">supuesto</span></b><span>posts</span></span><span class="screen"><span class="notch"></span><span class="w-row"><span class="w-title">Contenido</span><span class="w-pill">+ Crear</span></span><span class="w-row"><span class="w-avatar"></span><span class="w-line"></span><span class="w-pill">Publicado</span></span><span class="w-row"><span class="w-avatar"></span><span class="w-line"></span><span class="w-pill">Borrador</span></span><span class="w-row"><span class="w-avatar"></span><span class="w-line"></span><span class="w-pill">Prog.</span></span><span class="w-sub">Filtra por fecha</span></span></button>
+</div>
+<div class="arrow" aria-hidden="true"><span class="n">9</span><span class="shaft"></span><span class="lbl">Ve perfil</span></div>
+<div class="step" role="listitem">
+<button class="phone" data-screen="a_perfil"><span class="cap"><b>10 · Perfil</b><span>bio + top</span></span><span class="screen"><span class="notch"></span><span class="w-row"><span class="w-avatar big"></span><span class="w-line"></span></span><span class="w-sub">120 posts · 8,4 mil seg.</span><span class="w-sub">Creador · bio breve…</span><span class="w-row"><span class="w-pill">Seguir</span><span class="w-chip">Mensaje</span></span><span class="w-grid"><span class="w-cell"></span><span class="w-cell"></span><span class="w-cell"></span></span></span></button>
+</div>
+</div>
+</section>
+
+<!-- ESTADOS ALTERNOS -->
+<section class="lane alt" data-lane="alternos" aria-labelledby="hAlt">
+<div class="lane-head">
+<span class="icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4m0 4h.01M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/></svg></span>
+<div><h2 id="hAlt">Estados alternos — fuera del flujo <small>Sin conexión · Sin resultados · No disponible</small></h2></div>
+</div>
+<div class="flow" role="list" aria-label="Estados alternos">
+<div class="step" role="listitem">
+<button class="phone" data-screen="e_off"><span class="cap"><b>A1 · Sin red</b><span>reintentar</span></span><span class="screen"><span class="notch"></span><span class="w-icon"></span><span class="w-title" style="text-align:center">Sin conexión</span><span class="w-sub" style="text-align:center">Revisa tu internet</span><span class="w-btn">Reintentar</span><span class="w-line"></span><span class="w-line short"></span></span></button>
+</div>
+<div class="step" role="listitem" style="margin-left:1rem">
+<button class="phone" data-screen="e_empty"><span class="cap"><b>A2 · Vacío</b><span>sin hallazgos</span></span><span class="screen"><span class="notch"></span><span class="w-bar"></span><span class="w-icon"></span><span class="w-title" style="text-align:center">Sin resultados</span><span class="w-row"><span class="w-chip">Prueba “foto”</span><span class="w-chip">Tags</span></span><span class="w-line"></span><span class="w-line short"></span></span></button>
+</div>
+<div class="step" role="listitem" style="margin-left:1rem">
+<button class="phone" data-screen="e_na"><span class="cap"><b>A3 · No disponible</b><span>eliminado</span></span><span class="screen"><span class="notch"></span><span class="w-icon"></span><span class="w-title" style="text-align:center">No disponible</span><span class="w-sub" style="text-align:center">Se eliminó o es privado</span><span class="w-btn">Volver</span><span class="w-line"></span><span class="w-line short"></span></span></button>
+</div>
+</div>
+</section>
+
+<!-- PANEL DETALLE -->
+<section class="detail" id="detail" hidden aria-live="polite" aria-labelledby="dTitle" tabindex="-1">
+<button class="btn close-x" id="dClose">✕ Cerrar</button>
+<h3 id="dTitle">Detalle</h3>
+<dl>
+<dt>Propósito</dt><dd id="dPurpose"></dd>
+<dt>Elementos de la interfaz</dt><dd><ul id="dElements"></ul></dd>
+<dt>Acción que lleva a la siguiente pantalla</dt><dd id="dNext"></dd>
+</dl>
+</section>
+
+<ol class="sr-only">
+<li>Oyente: Login, con Inicia sesión va al Feed.</li>
+<li>Oyente: Feed, con Toca Buscar va a Buscar.</li>
+<li>Oyente: Buscar, con Abre resultado va al Detalle.</li>
+<li>Oyente: Detalle, con Toca un reel va a Reels.</li>
+<li>Oyente: Reels, con Guarda va a Guardados.</li>
+<li>Artista: Login, con Inicia sesión va al Panel.</li>
+<li>Artista: Panel, con Abre stats va a Stats.</li>
+<li>Artista: Stats, con Gestiona va a Contenido.</li>
+<li>Artista: Contenido, con Ve perfil va al Perfil.</li>
+<li>Entre carriles: vistas del oyente nutren stats del artista.</li>
+</ol>
+
+<footer>
+<p>Archivo autocontenido (HTML+CSS+JS, sin dependencias). Funciones generales y públicas de Instagram. Sin logos ni capturas oficiales. Diagrama formal Archify complementario: <code>secuencia-pantallas.archify.html</code>.</p>
+</footer>
+</main>
+</div>
+<script>
+(function(){
+var root=document.documentElement, body=document.body;
+var DATA={
+o_login:{t:"1 · Inicio de sesión (oyente)",p:"Entrar a la cuenta para consumir contenido.",e:["Campo de usuario o correo","Campo de contraseña","Botón Entrar","Enlace de recuperación"],n:"1. Inicia sesión → va al Feed."},
+o_feed:{t:"2 · Feed / Inicio",p:"Ver publicaciones recientes de las cuentas seguidas.",e:["Historias arriba","Tarjeta con avatar y nombre","Foto en gris","Fila: me gusta, comentar, compartir"],n:"2. Toca Buscar → va a Buscar."},
+o_buscar:{t:"3 · Buscar",p:"Encontrar personas, temas y lugares.",e:["Barra de búsqueda","Filtros: Top, Personas, Reels","Cuadrícula de miniaturas"],n:"3. Abre un resultado → va al Detalle."},
+o_detalle:{t:"4 · Detalle de post (supuesto)",p:"Ver una publicación con sus comentarios.",e:["Foto grande","Fila de autor con Seguir","Conteo de Me gusta","Comentarios y caja para comentar"],n:"4. Toca un reel → va al visor de Reels."},
+o_reels:{t:"5 · Visor de reels",p:"Ver videos cortos a pantalla completa.",e:["Video vertical en gris","Riel lateral de acciones","Autor y audio al pie","Barra de progreso"],n:"5. Guarda → va a Guardados. Sus vistas nutren las stats del artista (10)."},
+o_guard:{t:"6 · Guardados",p:"Colecciones privadas del oyente.",e:["Encabezado Guardados","Pestañas de colecciones","Cuadrícula de 2 columnas","Aviso de privacidad"],n:"Fin del recorrido oyente."},
+a_login:{t:"6 · Inicio de sesión (creador)",p:"Entrar con una cuenta profesional.",e:["Insignia de cuenta profesional","Campos de acceso","Botón Entrar","Cambiar de cuenta"],n:"6. Inicia sesión → va al Panel profesional."},
+a_panel:{t:"7 · Panel profesional",p:"Resumen para creadores con consejos.",e:["Saludo con avatar","Variación de alcance","3 mini tarjetas","Aviso con consejo"],n:"7. Abre stats → va a Estadísticas."},
+a_stats:{t:"8 · Estadísticas de audiencia",p:"Medir alcance e interacciones.",e:["Cifra principal y rango","Barras por día","Seguidores vs no seguidores","Nota de vistas de reels"],n:"8. Gestiona → va a Contenido."},
+a_cont:{t:"9 · Contenido (supuesto)",p:"Gestionar publicaciones del creador.",e:["Botón Crear","Lista con estado: publicado, borrador","Filtros por fecha","Miniatura por fila"],n:"9. Ve perfil → va al Perfil."},
+a_perfil:{t:"10 · Perfil de creador",p:"Vista pública del artista.",e:["Avatar y contadores","Bio breve","Botones Seguir y Mensaje","Cuadrícula de posts"],n:"Fin del recorrido artista."},
+e_off:{t:"A1 · Sin conexión",p:"Estado cuando no hay internet.",e:["Icono sin red","Mensaje de error","Botón Reintentar"],n:"Fuera del flujo: reintentar vuelve atrás."},
+e_empty:{t:"A2 · Búsqueda sin resultados",p:"Estado de búsqueda vacía.",e:["Barra con texto","Icono de vacío","Sugerencias de búsqueda"],n:"Fuera del flujo: ajusta la búsqueda."},
+e_na:{t:"A3 · Contenido no disponible",p:"Post eliminado o privado.",e:["Icono de contenido roto","Mensaje explicativo","Botón Volver"],n:"Fuera del flujo: vuelve atrás."}
+};
+var detail=document.getElementById('detail'),
+dTitle=document.getElementById('dTitle'),dP=document.getElementById('dPurpose'),
+dE=document.getElementById('dElements'),dN=document.getElementById('dNext'),
+dClose=document.getElementById('dClose');
+function open(id){
+var d=DATA[id]; if(!d) return;
+dTitle.textContent=d.t; dP.textContent=d.p; dN.textContent=d.n;
+dE.innerHTML=""; d.e.forEach(function(x){var li=document.createElement('li');li.textContent=x;dE.appendChild(li);});
+detail.hidden=false; detail.focus({preventScroll:false});
+}
+dClose.addEventListener('click',function(){detail.hidden=true;});
+document.addEventListener('keydown',function(ev){if(ev.key==='Escape'&&!detail.hidden){detail.hidden=true;}});
+document.querySelectorAll('.phone').forEach(function(b){
+b.addEventListener('click',function(){open(b.getAttribute('data-screen'));});
+});
+var bO=document.getElementById('btnOyente'),bA=document.getElementById('btnArtista'),
+bT=document.getElementById('btnTema'),bR=document.getElementById('btnReset');
+function setRole(r){
+if(body.getAttribute('data-role')===r){body.setAttribute('data-role','');bO.setAttribute('aria-pressed','false');bA.setAttribute('aria-pressed','false');return;}
+body.setAttribute('data-role',r);
+bO.setAttribute('aria-pressed',r==='oyente'?'true':'false');
+bA.setAttribute('aria-pressed',r==='artista'?'true':'false');
+}
+bO.addEventListener('click',function(){setRole('oyente');});
+bA.addEventListener('click',function(){setRole('artista');});
+function setTheme(t){root.setAttribute('data-theme',t);bT.setAttribute('aria-pressed',t==='light'?'true':'false');try{localStorage.setItem('p06-theme',t);}catch(e){}}
+bT.addEventListener('click',function(){setTheme(root.getAttribute('data-theme')==='dark'?'light':'dark');});
+bR.addEventListener('click',function(){body.setAttribute('data-role','');bO.setAttribute('aria-pressed','false');bA.setAttribute('aria-pressed','false');detail.hidden=true;});
+try{var q=null;try{q=new URLSearchParams(window.location.search).get('theme');}catch(e){}var s=(q==='light'||q==='dark')?q:localStorage.getItem('p06-theme');if(s==='light'||s==='dark'){root.setAttribute('data-theme',s);bT.setAttribute('aria-pressed',s==='light'?'true':'false');}}catch(e){}
+})();
+</script>
+</body>
+</html>
